@@ -1,0 +1,56 @@
+.login_component{
+    width: 100%;
+    height: 100vh;
+    /* background-color: #3b3b3b; */
+    background-color: #f0f0f0c0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_component .card_login{
+    width: 85%;
+    height: 500px;
+    border-radius: 14px;
+    box-shadow: 10px 3px 10px rgba(0, 0, 0, .3);
+    display: flex;
+    color: #5c5858;
+}
+.card_login .background_login{
+    flex: 1;
+    background-image: url(/img/wallpaper-movies.jpg);
+    background-size: 120% 120%;
+    border-radius: 14px 0px 0px 14px;
+    animation: animationBackgroundLogin 2s alternate infinite;
+}
+
+@keyframes animationBackgroundLogin{
+    0%{
+        background-position-x: 0%;
+    }
+    100%{
+        background-position-x: 100%;
+    }
+}
+
+.card_login .form_login{
+    background-color: #fff;
+    padding: 1rem;
+    width: 300px;
+    border-radius: 0px 14px 14px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card_divider{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+.card_divider .__line__{
+    height: 1px;
+    background-image: radial-gradient(circle, rgb(148, 143, 143, .4), rgb(148, 143, 143, .1));
+    flex: 1;
+}
