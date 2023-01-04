@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&family=Roboto&family=Ubuntu&display=swap');
+
+.sidebar{
+    height: 100vh;
+    flex: .25;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .4);
+    padding: 10px;
+    background-image: url(/img/wallpaper-movies.jpg);
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+}
+
+.header_sidebar{
+    /* background-image: url(/img/wallpaper-movies.jpg); */
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 1px 10px 10px rgba(0, 0, 0, .1);
+}
+
+.card_img{
+    border-radius: 24px;
+    padding: 1rem;
+    /* backdrop-filter: blur(2px); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;  
+}
+
+.body_sidebar{
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+.body_sidebar ul{
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    padding: 1rem;
+    background-color: #ffff;
+    border-radius: 14px;
+
+    color: rgb(102, 101, 101);
+}
+
+.body_sidebar ul li{
+    margin: .5rem 0;
+    padding: 10px;
+    border-radius: 14px;
+    cursor: pointer;
+    background-color: #ffff;
+    margin-left: 13px;
+}
+
+.body_sidebar ul li:hover{
+    background-color: rgb(84, 84, 197, .1);
+    transform: scale(1.1, 1.1);
+    box-shadow: 1px 6px 15px rgba(123, 75, 168, 0.2);
+}
+
+.body_sidebar ul li span{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.body_sidebar ul li span p{
+    font-family: 'Roboto';
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.active_nav{
+    background-color: rgb(84, 84, 197, .1);
+    transform: scale(1.1, 1.1);
+    box-shadow: 1px 6px 15px rgba(123, 75, 168, 0.2);
+}

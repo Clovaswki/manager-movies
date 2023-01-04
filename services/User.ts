@@ -1,4 +1,4 @@
-/*
+
 //firebase
 //firestore
 import {
@@ -32,7 +32,7 @@ import { LoginUser, RegisterUser, IUser, IUserDocConverting } from "./types";
 //others
 import { setUserLocalStorage } from "../utils/userLocalStorage";
 import { actionUserAuth } from "../store/actions/userAuth";
-import { changeComponent } from "../store/actions/managerComponentsAction";
+import { actionChangeComponent } from "../store/actions/managerComponents";
 
 class User {
 
@@ -222,7 +222,7 @@ class User {
 
     public signOut() {
         signOut(auth)
-        store.dispatch(changeComponent('login'))
+        store.dispatch(actionChangeComponent('login'))
         setUserLocalStorage(null)
         store.dispatch(actionUserAuth({auth: false} as any))
     }
@@ -258,6 +258,4 @@ class User {
 
 var user = new User()
 
-export default user*/
-
-export default {}
+export default user
