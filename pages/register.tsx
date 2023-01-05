@@ -2,14 +2,15 @@ import React from "react";
 import Title from "antd/es/typography/Title";
 import { CodeOutlined, GoogleOutlined } from '@ant-design/icons'
 import { connect } from "react-redux";
-import styles from '../styles/Signup.module.css'
-
 import Link from "next/link";
 
-import type { UploadFile } from 'antd/es/upload/interface';
+//styles
+import styles from '../styles/Signup.module.css'
 
 //components
 import UploadPicture from '../components/uploadPicture'
+import type { UploadFile } from 'antd/es/upload/interface';
+// import SwitchTheme from "../switchTheme";
 
 import {
     Button,
@@ -19,8 +20,8 @@ import {
 } from 'antd';
 
 //user service
-// import User from '../../services/User'
-// import SwitchTheme from "../switchTheme";
+import User from '../services/User'
+
 
 type TypeCreateUser = {
     pictureFile?: string | any,
@@ -44,6 +45,94 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
         confirmPass: ''
     });
 
+    //alert message
+    const alertMessage = (message: string, type: string | any) => {
+        messageApi.open({
+            type: type,
+            content: message,
+        });
+    };
+
+    //put data of new user
+    const handleSubmit = async (values: TypeCreateUser) => {
+
+        var errors: { message: string }[] = []
+        var data: TypeCreateUser | any = {
+            pictureFile: picture?.thumbUrl,
+            name: values.name,
+            email: values.email,
+            password: values.password,
+            confirmPass: values.confirmPass
+        }
+
+        var message: string[] = ['Arquivo de foto inválido!', 'Nome inválido', 'E-mail inválido',
+            'Senha inválida!', 'Confirmação de senha inválida!'
+        ]
+
+        //form validation
+        Object.entries(data).forEach(([key, value], index) => {
+
+            if (!data[key] || typeof data[key] == undefined || data[key] == null) {
+                errors.push({ message: message[index] })
+            }
+
+        })
+
+        if (errors.length > 0) {
+            setLoading(false)
+            return errors.forEach(error => {
+                alertMessage(error.message, 'error')
+            })
+        }
+
+        try {
+
+            var response = await User.createUser({
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                picture: data.pictureFile
+            })
+            setLoading(false)
+
+            console.log(response)
+
+            if (!response.success) return alertMessage(response.message, 'error')
+
+            alertMessage('Usuário criado', 'success')
+
+            //set note all fields
+            setForm({ name: '', password: '', email: '', confirmPass: '' })
+
+        } catch (error) {
+            setLoading(false)
+            console.log(error)
+            alertMessage('Erro na criação do usuário!', ' error')
+            //set note all fields
+            setForm({ name: '', password: '', email: '', confirmPass: '' })
+        }
+
+        //set none picture
+        setPicture(undefined)
+    }
+
+    const registerWithGoogle = async () => {
+
+        setLoadingGoogle(true)
+
+        var response = await User.createUserWithGoogle()
+
+        setLoadingGoogle(false)
+
+        if (response.success) {
+            alertMessage('Usuário criado!', 'success')
+        } else {
+            alertMessage(response.message, 'error')
+        }
+
+    }
+
+
     return (
         <div className={styles.register_component}>
 
@@ -52,10 +141,10 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
                     <span className={styles.icon_cardRegister}>
                         <CodeOutlined style={{ fontSize: '150px', color: '#fff' }} />
                     </span>
-                    <span className={styles.btnLogin_cardRegister} style={{display: 'flex', justifyContent: 'center'}}>    
+                    <span className={styles.btnLogin_cardRegister} style={{ display: 'flex', justifyContent: 'center' }}>
                         <Link href={'/'}>
                             <Button
-                                style={{ background: 'transparent', color: '#fff' }}   
+                                style={{ background: 'transparent', color: '#fff' }}
                             >
                                 Login
                             </Button>
@@ -66,22 +155,23 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
 
             <div className={styles.card_register}>
                 {contextHolder}
-                <div className={styles.card_register_child} style={{position: 'relative'}}>
+                <div className={styles.card_register_child} style={{ position: 'relative' }}>
 
                     <div style={{ margin: '2rem 0' }}>
-                        <Title level={3}>crie sua conta como cliente</Title>
+                        {/* <Title level={3}>crie sua conta como cliente</Title> */}
+                        <h4>Crie sua conta como usuário</h4>
                     </div>
-                    <div style={{position: 'absolute', right: '3%', top: '3%'}}>
+                    <div style={{ position: 'absolute', right: '3%', top: '3%' }}>
                         {/* <SwitchTheme/> */}
                     </div>
 
                     <div>
-                        <Button 
-                            type="primary" 
-                            icon={<GoogleOutlined />} 
-                            size={'large'} 
+                        <Button
+                            type="primary"
+                            icon={<GoogleOutlined />}
+                            size={'large'}
                             loading={loadingGoogle}
-                            // onClick={() => registerWithGoogle()}
+                            onClick={() => registerWithGoogle()}
                         >
                             Faça login com o google
                         </Button>
@@ -95,8 +185,8 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
                             wrapperCol={{ span: 64 }}
                             style={{ flex: 1 }}
                             layout="vertical"
-                            // onFinish={handleSubmit}
-                            onFinishFailed={() => setLoading(false)} 
+                            onFinish={handleSubmit}
+                            onFinishFailed={() => setLoading(false)}
                         >
 
                             <Form.Item
@@ -105,9 +195,9 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
                                 tooltip="Qual nome você deseja inserir ?"
                                 rules={[{ required: true, message: 'Por favor, insira o seu nome!', whitespace: true }]}
                             >
-                                <Input 
-                                    placeholder="Insira o seu nome" 
-                                    onChange={(event: any) => setForm((prev) => ({...prev, name: event.target.value}))}
+                                <Input
+                                    placeholder="Insira o seu nome"
+                                    onChange={(event: any) => setForm((prev) => ({ ...prev, name: event.target.value }))}
                                     defaultValue={form.name}
                                 />
                             </Form.Item>
@@ -126,9 +216,9 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
                                     },
                                 ]}
                             >
-                                <Input 
-                                    placeholder="Insira o seu e-mail" 
-                                    onChange={(event: any) => setForm((prev) => ({...prev, email: event.target.value}))}
+                                <Input
+                                    placeholder="Insira o seu e-mail"
+                                    onChange={(event: any) => setForm((prev) => ({ ...prev, email: event.target.value }))}
                                     defaultValue={form.email}
                                 />
                             </Form.Item>
@@ -144,9 +234,9 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
                                 ]}
                                 hasFeedback
                             >
-                                <Input.Password 
-                                    placeholder="Insira a sua senha" 
-                                    onChange={(event: any) => setForm((prev) => ({...prev, password: event.target.value}))}
+                                <Input.Password
+                                    placeholder="Insira a sua senha"
+                                    onChange={(event: any) => setForm((prev) => ({ ...prev, password: event.target.value }))}
                                     defaultValue={form.password}
                                 />
                             </Form.Item>
@@ -171,9 +261,9 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
                                     }),
                                 ]}
                             >
-                                <Input.Password 
-                                    placeholder="Repita a sua senha" 
-                                    onChange={(event: any) => setForm((prev) => ({...prev, confirmPass: event.target.value}))}
+                                <Input.Password
+                                    placeholder="Repita a sua senha"
+                                    onChange={(event: any) => setForm((prev) => ({ ...prev, confirmPass: event.target.value }))}
                                     defaultValue={form.confirmPass}
                                 />
                             </Form.Item>
@@ -189,13 +279,13 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
                                     htmlType="submit"
                                     loading={loading}
                                     onClick={() => setLoading(true)}
-                                    style={{marginTop: '-40px'}}
+                                    style={{ marginTop: '-40px' }}
                                 >
                                     Cadastrar
                                 </Button>
 
                                 <Link href={'/'}>
-                                    <h5 style={{margin: '0'}}>    
+                                    <h5 style={{ margin: '0' }}>
                                         Já faz parte do nosso time ? logue-se
                                     </h5>
                                 </Link>

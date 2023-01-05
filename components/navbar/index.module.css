@@ -9,14 +9,33 @@
     justify-content: space-between
 }
 
-.navbarApp img{
+.navbarApp h4{
+    margin-bottom: 0;
+}
+
+.navbarApp .img_user{
     cursor: pointer;
     outline: 0px solid rgb(179, 178, 178);
     outline-offset: 0px;
     transition: .5s;
 }
 
-.navbarApp img:hover{
+.navbarApp .img_user:hover{
     outline: 2px solid rgb(179, 178, 178);
     outline-offset: 1.5px;
+}
+
+.logo_navbar{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo_navbar h4{
+    color: #cf5050;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    width: 100px;
+    margin: 0;
 }

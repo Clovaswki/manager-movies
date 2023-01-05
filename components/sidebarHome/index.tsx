@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react'
 import { CodeOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux';
-import styles from './index.module.css'
 import { Dispatch } from 'redux';
 
 //actions
@@ -14,6 +13,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 //styles
 // import { Sidebar, HeaderSidebar, CardImg } from './styles'
+import styles from './index.module.css'
 
 type Props = {
     component: string,
@@ -38,8 +38,8 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch }) => {
         <aside className={styles.sidebar}>
             <div className={styles.header_sidebar}>
                 <div className={styles.card_img}>
-                    <CodeOutlined style={{ fontSize: '60px', color: 'gray' }} />
-                    <h4 style={{ color: 'gray' }}>Movie manager</h4>
+                    <img src="/img/logo.png" alt="logo" width={'60px'} height={'60px'} />
+                    <h4>Movie manager</h4>
                 </div>
             </div>
             <div className={styles.body_sidebar}>

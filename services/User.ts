@@ -32,7 +32,6 @@ import { LoginUser, RegisterUser, IUser, IUserDocConverting } from "./types";
 //others
 import { setUserLocalStorage } from "../utils/userLocalStorage";
 import { actionUserAuth } from "../store/actions/userAuth";
-import { actionChangeComponent } from "../store/actions/managerComponents";
 
 class User {
 
@@ -75,13 +74,19 @@ class User {
                 return { success: false, message: 'O usuário já existe' }
             }
 
+            var newUser = await addDoc(this.collection, {
+                uid: '',
+                name, 
+                email,
+                picture
+            })
+            
             var user: UserCredential = await createUserWithEmailAndPassword(auth, email, password)
-
-            var newUser = await addDoc(this.collection, { uid: user.user.uid, email, name, picture })
-
+            
             return user ? { success: true, ...newUser } : { success: false, message: 'Erro interno!' }
 
         } catch (error: Object | any) {
+            console.log(error)
             return { success: false, ...error, message: 'Erro interno!' }
         }
 
@@ -160,9 +165,9 @@ class User {
 
             if (user_credential) {
 
-                let { user } = user_credential
+                // let { user } = user_credential
 
-                var dataUser: IUserDocConverting = await this.getUser('uid', user.uid)
+                var dataUser: IUserDocConverting = await this.getUser('email', email)
 
                 var { email, name, uid, picture } = dataUser.user 
 
@@ -222,7 +227,6 @@ class User {
 
     public signOut() {
         signOut(auth)
-        store.dispatch(actionChangeComponent('login'))
         setUserLocalStorage(null)
         store.dispatch(actionUserAuth({auth: false} as any))
     }

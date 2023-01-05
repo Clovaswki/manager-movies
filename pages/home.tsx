@@ -7,6 +7,8 @@ import HomeApp from '../components/homeApp'
 import FavoritesApp from '../components/favoritesApp'
 import Navbar from '../components/navbar'
 
+import Head from 'next/head';
+
 interface TypeComponents {
   label: string,
   component: ReactNode
@@ -41,6 +43,10 @@ const Home: React.FC<Props> = ({component, dispatch}) => {
   }
 
   return (
+    <>
+    <Head>
+      <title>Página principal</title>
+    </Head>
     <div style={{display: 'flex', width: '100%', height: '100vh'}}>
       <SidebarHome />
       <div style={{flex: 1, background: '#F5F9FC'}}>
@@ -51,6 +57,7 @@ const Home: React.FC<Props> = ({component, dispatch}) => {
 
       </div>
     </div>
+    </>
   )
 }
 
