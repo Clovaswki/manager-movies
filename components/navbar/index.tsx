@@ -78,12 +78,14 @@ const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
     return (
         <div className={styles.navbarApp}>
             <div style={{display: 'flex', alignItems: 'center', marginLeft: '10px', gap: '10px'}}>
-                <IconButton 
-                    onClick={() => setCollapsed((prev:boolean) => !prev)}
-                    style={{display: 'flex', alignItems: 'center'}} 
-                >
-                    <MenuOpenIcon style={collapsed ? {transform: 'rotate(180deg)'} : {}}/>
-                </IconButton>
+                <span className={styles.btn_sidebar_hide}>
+                    <IconButton 
+                        onClick={() => setCollapsed((prev:boolean) => !prev)}
+                        style={{display: 'flex', alignItems: 'center'}} 
+                    >
+                        <MenuOpenIcon style={collapsed ? {transform: 'rotate(180deg)'} : {}}/>
+                    </IconButton>
+                </span>
                 <h4>{labelComponent}</h4>
             </div>
             <div className={styles.logo_navbar}>

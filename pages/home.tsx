@@ -7,8 +7,9 @@ import SidebarHome from '../components/sidebarHome'
 import HomeApp from '../components/homeApp'
 import FavoritesApp from '../components/favoritesApp'
 import Navbar from '../components/navbar'
-
 import Head from 'next/head';
+import { Api } from '../services/ApiMovies'
+import { actionDataMovies } from '../store/actions/dataMovies'
 
 interface TypeComponents {
   label: string,
@@ -17,10 +18,30 @@ interface TypeComponents {
 
 type Props = {
   component: string,
-  dispatch: Dispatch
+  dispatch: Dispatch,
+  movies: any
 }
 
-const Home: React.FC<Props> = ({component, dispatch }) => {
+export async function getStaticProps(){
+
+  var movies = await fetchMovies()
+
+  return{
+    props:{
+      movies: movies.results
+    }
+  }
+
+}
+
+const fetchMovies = async () => {
+
+  var response = await Api.get('/movie/popular?language=en-US&page=1')
+
+  return response.data
+}
+
+const Home: React.FC<Props> = ({component, dispatch, movies }) => {
 
   const [componentChoosed, setComponentChoosed] = useState<ReactNode>()
   const [collapsed, setCollapsed] = useState<boolean>(true)
@@ -31,6 +52,10 @@ const Home: React.FC<Props> = ({component, dispatch }) => {
     
   }, [component])
   
+  useEffect(() => {
+    dispatch(actionDataMovies(movies))
+  }, [])
+
   const managerComponents = () => {
 
     const components: TypeComponents[] = [

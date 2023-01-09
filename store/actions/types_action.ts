@@ -18,3 +18,9 @@ import { User } from "../types_state";
         type: 'CHANGE_THEME',
         theme: string
     }
+
+//actions: data movies
+    export interface TypeDataMovies extends Action{
+        type: 'FETCH_DATA_MOVIES',
+        data: any[]
+    }

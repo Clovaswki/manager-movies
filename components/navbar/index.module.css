@@ -48,5 +48,8 @@
     .logo_navbar{
         display: flex;
     }
+    .btn_sidebar_hide{
+        display: none;
+    }
 
 }

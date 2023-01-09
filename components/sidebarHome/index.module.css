@@ -1,49 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&family=Roboto&family=Ubuntu&display=swap');
 
 
+.show_sidebar, .sidebar{
+    height: 100vh;
+    flex-direction: column;
+}
+
 /* show sidebar */
-.show_sidebar{
+.show_sidebar {
     flex: .25;
-    height: 100vh;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
-    backdrop-filter: blur(2px);
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, Helvetica, sans-serif;
-    transition: 500ms;
 }
 
-.sidebar{
+/* hide sidebar */
+.sidebar {
     flex: .1;
-    height: 100vh;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
-    backdrop-filter: blur(2px);
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, Helvetica, sans-serif;
-    transition: 500ms;
 }
 
-.header_sidebar{
+.sidebar .card_img img {
+    width: 40px;
+    height: 40px;
+}
+
+.sidebar .card_img h4 {
+    display: none;
+}
+
+.sidebar .body_sidebar ul li {
+    margin-left: 0;
+}
+
+.sidebar ul li span {
+    justify-content: center;
+}
+
+.sidebar .body_sidebar ul li span p {
+    display: none;
+}
+
+.header_sidebar {
     background-color: #f7eeee;
 }
 
-.card_img{
+.card_img {
     border-radius: 24px;
     padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;  
-
-}
-.sidebar .card_img img{
-    width: 40px;
-    height: 40px;
+    gap: 1rem;
 
 }
 
-.card_img h4{
+.card_img h4 {
     color: #cf5050;
     font-weight: 700;
     font-size: 22px;
@@ -52,18 +60,15 @@
     margin: 0;
 }
 
-.sidebar .card_img h4{
-    display: none;
-}
 
-.body_sidebar{
+.body_sidebar {
     margin-top: 1.5rem;
     display: flex;
     justify-content: center;
     height: 100%;
 }
 
-.body_sidebar ul{
+.body_sidebar ul {
     width: 100%;
     height: 100%;
     list-style: none;
@@ -74,7 +79,7 @@
     color: rgb(102, 101, 101);
 }
 
-.body_sidebar ul li{
+.body_sidebar ul li {
     margin: .5rem 0;
     padding: 10px;
     border-radius: 14px;
@@ -83,48 +88,76 @@
     margin-left: 13px;
 }
 
-.sidebar .body_sidebar ul li {
-    margin-left: 0;
-}
-
-.body_sidebar ul li:hover{
+.body_sidebar ul li:hover {
     background-color: rgb(84, 84, 197, .1);
     transform: scale(1.1, 1.1);
     box-shadow: 1px 6px 15px rgba(123, 75, 168, 0.2);
 }
 
-.sidebar ul li span{
-    justify-content: center;
-}
 
-.body_sidebar ul li span{
+.body_sidebar ul li span {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.body_sidebar ul li span p{
+.body_sidebar ul li span p {
     font-family: 'Roboto';
     font-size: 1.1rem;
     font-weight: 500;
     margin: 0;
 }
 
-.sidebar .body_sidebar ul li span p{
-    display: none;
-}
 
-.active_nav{
+.active_nav {
     background-color: rgb(84, 84, 197, .1);
     transform: scale(1.1, 1.1);
     box-shadow: 1px 6px 15px rgba(123, 75, 168, 0.2);
 }
 
 
-@media screen and (max-width: 750px){
+@media screen and (max-width: 750px) {
 
-    .sidebar{
-        display: none;  
+    .sidebar, .show_sidebar {
+        position: absolute;
+        bottom: 0;
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+        z-index: 30;
     }
 
+    .body_sidebar {
+        margin: 0;
+        width: 100%;
+    }
+
+    .body_sidebar ul {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+    
+    .body_sidebar .card_img img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .body_sidebar .card_img h4 {
+        display: none;
+    }
+    
+    .body_sidebar .body_sidebar ul li {
+        margin-left: 0;
+    }
+    
+    .body_sidebar ul li span {
+        justify-content: center;
+    }
+    
+    .body_sidebar ul li span p {
+        display: none;
+    }
 }

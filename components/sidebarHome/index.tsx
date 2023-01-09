@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode, useEffect, CSSProperties } from 'react'
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -26,6 +26,14 @@ type Navs = {
     component: string
 }
 
+const stylesSidebar: CSSProperties = {
+    boxShadow: '1px 1px 10px rgba(0, 0, 0, .2)',
+    backdropFilter: 'blur(2px)',
+    display: 'flex',
+    fontFamily: 'Arial, Helvetica, sans-serif',
+    transition: '500ms'
+}
+
 const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed }) => {
 
     const navs: Navs[] = [
@@ -34,12 +42,11 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed }) => {
         { label: 'Favoritos', icon: <BookmarksOutlinedIcon />, component: 'favorites' },
     ]
 
-    useEffect(() => {
-
-    }, [collapsed])
-
     return (
-        <aside className={collapsed ? styles.sidebar : styles.show_sidebar}>
+        <aside 
+            className={collapsed ? styles.sidebar : styles.show_sidebar}
+            style={stylesSidebar}
+        >
             <div className={styles.header_sidebar}>
                 <div className={styles.card_img}>
                     <img 

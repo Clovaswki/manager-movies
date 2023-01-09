@@ -1,34 +1,16 @@
 import React from 'react'
 import { Progress, Rate } from 'antd'
+import { connect } from 'react-redux'
 
 //styles
 import styles from './index.module.css'
 
 import { Api, ApiPictures } from '../../services/ApiMovies'
 
-export async function getStaticProps() {
-
-  var movies = await fetchMovies()
-
-  console.log(movies)
-
-  return {
-    props: {
-      movies
-    }
-  }
-}
-
-const fetchMovies = async () => {
-
-  var response = await Api.get('/movie/popular?language=en-US&page=1')
-
-  return response.data
-}
 
 const HomeApp: React.FC<any> = ({movies}) => {
 
-  const [data, setData] = React.useState([])
+  const [data, setData] = React.useState(movies)
 
   React.useEffect(() => {
 
@@ -53,15 +35,12 @@ const HomeApp: React.FC<any> = ({movies}) => {
       }
 
     }
-
-   
-
   }, [])
 
   return (
     <div className={styles.homeApp}>
 
-      {/* <div className={styles.movies}>
+      <div className={styles.movies}>
         {
           data.map((movie: any, index: number) => (
 
@@ -89,10 +68,14 @@ const HomeApp: React.FC<any> = ({movies}) => {
 
           ))
         }
-      </div> */}
+      </div> 
 
     </div>
   )
 }
 
-export default HomeApp  
+const mapPropsToState = (state: any) => ({
+  movies: state.dataMovies
+})
+
+export default connect(mapPropsToState)(HomeApp)
