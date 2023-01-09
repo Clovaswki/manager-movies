@@ -9,6 +9,7 @@ import HomeApp from '../components/homeApp'
 import FavoritesApp from '../components/favoritesApp'
 import Navbar from '../components/navbar'
 import About from '../components/about'
+import Categories from '../components/categories';
 
 //Api
 import { Api } from '../services/ApiMovies'
@@ -62,9 +63,10 @@ const Home: React.FC<Props> = ({component, dispatch, movies }) => {
   const managerComponents = () => {
 
     const components: TypeComponents[] = [
-      {label: 'Home', component: <HomeApp/>},
-      {label: 'Favoritos', component: <FavoritesApp/>},
-      {label: 'Sobre', component: <About/>}
+      {label: 'home', component: <HomeApp/>},
+      {label: 'favorites', component: <FavoritesApp/>},
+      {label: 'about', component: <About/>},
+      {label: 'categories', component: <Categories/>}
     ]
 
     var choice_component: TypeComponents | undefined = components.find( c => c.label === component)

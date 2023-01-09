@@ -53,7 +53,8 @@ type Props = {
 const components: TypeComponents[] = [
     { label: 'Home', component: 'home' },
     { label: 'Favoritos', component: 'favorites' },
-    { label: 'Sobre', component: 'about'}
+    { label: 'Sobre', component: 'about'},
+    { label: 'Categorias', component: 'categories'}
 ]
 
 

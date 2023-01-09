@@ -39,7 +39,7 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed }) => {
 
     const navs: Navs[] = [
         { label: 'Home', icon: <HomeOutlinedIcon />, component: 'home' },
-        // { label: 'Controle', icon: <WidgetsOutlinedIcon />, component: 'controls' },
+        { label: 'Categorias', icon: <WidgetsOutlinedIcon />, component: 'categories' },
         { label: 'Favoritos', icon: <BookmarksOutlinedIcon />, component: 'favorites' },
         { label: 'Sobre', icon: <InfoOutlinedIcon />, component: 'about' },
     ]
