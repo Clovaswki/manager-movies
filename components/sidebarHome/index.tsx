@@ -1,5 +1,4 @@
-import React, { ReactNode } from 'react'
-import { CodeOutlined } from '@ant-design/icons'
+import React, { ReactNode, useEffect } from 'react'
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
@@ -17,7 +16,8 @@ import styles from './index.module.css'
 
 type Props = {
     component: string,
-    dispatch: Dispatch
+    dispatch: Dispatch,
+    collapsed: boolean
 }
 
 type Navs = {
@@ -26,7 +26,7 @@ type Navs = {
     component: string
 }
 
-const SidebarHome: React.FC<Props> = ({ component, dispatch }) => {
+const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed }) => {
 
     const navs: Navs[] = [
         { label: 'Home', icon: <HomeOutlinedIcon />, component: 'home' },
@@ -34,11 +34,21 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch }) => {
         { label: 'Favoritos', icon: <BookmarksOutlinedIcon />, component: 'favorites' },
     ]
 
+    useEffect(() => {
+
+    }, [collapsed])
+
     return (
-        <aside className={styles.sidebar}>
+        <aside className={collapsed ? styles.sidebar : styles.show_sidebar}>
             <div className={styles.header_sidebar}>
                 <div className={styles.card_img}>
-                    <img src="/img/logo.png" alt="logo" width={'60px'} height={'60px'} />
+                    <img 
+                        src="/img/logo.png" 
+                        alt="logo" 
+                        width={'60px'} 
+                        height={'60px'} 
+                        style={{transition: '500ms'}}
+                    />
                     <h4>Movie manager</h4>
                 </div>
             </div>

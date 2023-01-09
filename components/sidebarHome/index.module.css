@@ -1,13 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&family=Roboto&family=Ubuntu&display=swap');
 
-.sidebar{
-    height: 100vh;
+
+/* show sidebar */
+.show_sidebar{
     flex: .25;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, .4);
+    height: 100vh;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
     backdrop-filter: blur(2px);
     display: flex;
     flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
+    transition: 500ms;
+}
+
+.sidebar{
+    flex: .1;
+    height: 100vh;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: 500ms;
 }
 
 .header_sidebar{
@@ -21,6 +35,12 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;  
+
+}
+.sidebar .card_img img{
+    width: 40px;
+    height: 40px;
+
 }
 
 .card_img h4{
@@ -30,6 +50,10 @@
     line-height: 22px;
     width: 100px;
     margin: 0;
+}
+
+.sidebar .card_img h4{
+    display: none;
 }
 
 .body_sidebar{
@@ -59,10 +83,18 @@
     margin-left: 13px;
 }
 
+.sidebar .body_sidebar ul li {
+    margin-left: 0;
+}
+
 .body_sidebar ul li:hover{
     background-color: rgb(84, 84, 197, .1);
     transform: scale(1.1, 1.1);
     box-shadow: 1px 6px 15px rgba(123, 75, 168, 0.2);
+}
+
+.sidebar ul li span{
+    justify-content: center;
 }
 
 .body_sidebar ul li span{
@@ -78,16 +110,21 @@
     margin: 0;
 }
 
+.sidebar .body_sidebar ul li span p{
+    display: none;
+}
+
 .active_nav{
     background-color: rgb(84, 84, 197, .1);
     transform: scale(1.1, 1.1);
     box-shadow: 1px 6px 15px rgba(123, 75, 168, 0.2);
 }
 
+
 @media screen and (max-width: 750px){
 
     .sidebar{
-        display: none;
+        display: none;  
     }
 
 }

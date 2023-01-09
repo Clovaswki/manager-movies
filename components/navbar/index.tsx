@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { SetStateAction, Dispatch } from 'react'
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import { useSelector } from 'react-redux';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import IconButton from '@mui/material/IconButton'
 
 //styles 
 import styles from './index.module.css'
@@ -43,13 +45,18 @@ type TypeComponents = {
     component: string
 }
 
+type Props = {
+    setCollapsed: SetStateAction<Dispatch<boolean>> | any,
+    collapsed: boolean
+}
+
 const components: TypeComponents[] = [
     { label: 'Home', component: 'home' },
     { label: 'Favoritos', component: 'favorites' }
 ]
 
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
 
     const { managerComponents, auth } = useSelector((state: any) => state)
 
@@ -70,7 +77,15 @@ const Navbar: React.FC = () => {
 
     return (
         <div className={styles.navbarApp}>
-            <h4 style={{ marginLeft: '50px' }}>{labelComponent}</h4>
+            <div style={{display: 'flex', alignItems: 'center', marginLeft: '10px', gap: '10px'}}>
+                <IconButton 
+                    onClick={() => setCollapsed((prev:boolean) => !prev)}
+                    style={{display: 'flex', alignItems: 'center'}} 
+                >
+                    <MenuOpenIcon style={collapsed ? {transform: 'rotate(180deg)'} : {}}/>
+                </IconButton>
+                <h4>{labelComponent}</h4>
+            </div>
             <div className={styles.logo_navbar}>
                 <img src="/img/logo.png" alt="logo" width={'50px'} height={'50px'} />
                 <h4>Movie manager</h4>

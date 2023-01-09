@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from '@next/font/google'
 
 import styles from '../styles/Signin.module.css'
 
@@ -78,6 +77,10 @@ const Signin = () => {
 
 
   return (
+    <>
+    <Head>
+      <title>Movies Manager | Login</title>
+    </Head>
     <div className={styles.login_component}>
 
       {contextHolder}
@@ -142,6 +145,7 @@ const Signin = () => {
       </div>
 
     </div>
+    </>
   )
 
 }

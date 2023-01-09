@@ -54,3 +54,20 @@
     background-image: radial-gradient(circle, rgb(148, 143, 143, .4), rgb(148, 143, 143, .1));
     flex: 1;
 }
+
+@media screen and (max-width: 750px){
+    .login_component .card_login{
+        height: 100%;
+        width: 100%;
+        border-radius: inherit;
+        box-shadow: none;
+        flex-direction: column;
+    }   
+    .card_login .background_login{
+        border-radius: 0;
+    }
+    .card_login .form_login{
+        width: 100%;
+        border-radius: 0;
+    }
+}
