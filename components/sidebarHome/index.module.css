@@ -127,11 +127,23 @@
         width: 100%;
         align-items: center;
         z-index: 30;
+        background-color: #fff;
+    }
+
+    .card_img img{
+        width: 40px;
+        height: 40px;
+    }
+
+    .card_img h4{
+        display: none;
     }
 
     .body_sidebar {
         margin: 0;
         width: 100%;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+        border-radius: 14px 0px 0px 14px;
     }
 
     .body_sidebar ul {
@@ -155,6 +167,7 @@
     
     .body_sidebar ul li span {
         justify-content: center;
+        align-items: center;
     }
     
     .body_sidebar ul li span p {

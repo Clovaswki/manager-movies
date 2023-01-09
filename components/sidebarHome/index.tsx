@@ -9,6 +9,7 @@ import { actionChangeComponent } from '../../store/actions/managerComponents';
 import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 //styles
 // import { Sidebar, HeaderSidebar, CardImg } from './styles'
@@ -40,6 +41,7 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed }) => {
         { label: 'Home', icon: <HomeOutlinedIcon />, component: 'home' },
         // { label: 'Controle', icon: <WidgetsOutlinedIcon />, component: 'controls' },
         { label: 'Favoritos', icon: <BookmarksOutlinedIcon />, component: 'favorites' },
+        { label: 'Sobre', icon: <InfoOutlinedIcon />, component: 'about' },
     ]
 
     return (

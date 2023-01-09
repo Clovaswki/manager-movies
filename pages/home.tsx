@@ -1,13 +1,16 @@
 import React, { useState, useEffect, ReactNode } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
+import Head from 'next/head';
 
 //components
 import SidebarHome from '../components/sidebarHome'
 import HomeApp from '../components/homeApp'
 import FavoritesApp from '../components/favoritesApp'
 import Navbar from '../components/navbar'
-import Head from 'next/head';
+import About from '../components/about'
+
+//Api
 import { Api } from '../services/ApiMovies'
 import { actionDataMovies } from '../store/actions/dataMovies'
 
@@ -59,8 +62,9 @@ const Home: React.FC<Props> = ({component, dispatch, movies }) => {
   const managerComponents = () => {
 
     const components: TypeComponents[] = [
-      {label: 'home', component: <HomeApp/>},
-      {label: 'favorites', component: <FavoritesApp/>}
+      {label: 'Home', component: <HomeApp/>},
+      {label: 'Favoritos', component: <FavoritesApp/>},
+      {label: 'Sobre', component: <About/>}
     ]
 
     var choice_component: TypeComponents | undefined = components.find( c => c.label === component)

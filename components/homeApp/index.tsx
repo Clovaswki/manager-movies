@@ -7,7 +7,6 @@ import styles from './index.module.css'
 
 import { Api, ApiPictures } from '../../services/ApiMovies'
 
-
 const HomeApp: React.FC<any> = ({movies}) => {
 
   const [data, setData] = React.useState(movies)
