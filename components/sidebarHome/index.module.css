@@ -21,20 +21,12 @@
     height: 40px;
 }
 
-.sidebar .card_img h4 {
-    display: none;
-}
-
 .sidebar .body_sidebar ul li {
     margin-left: 0;
 }
 
 .sidebar ul li span {
     justify-content: center;
-}
-
-.sidebar .body_sidebar ul li span p {
-    display: none;
 }
 
 .header_sidebar {
@@ -107,7 +99,6 @@
     font-weight: 500;
     margin: 0;
 }
-
 
 .active_nav {
     background-color: rgb(84, 84, 197, .1);

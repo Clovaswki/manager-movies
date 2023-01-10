@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect, CSSProperties } from 'react'
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { Popover } from 'antd';
 
 //actions
 import { actionChangeComponent } from '../../store/actions/managerComponents';
@@ -45,36 +46,41 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed }) => {
     ]
 
     return (
-        <aside 
+        <aside
             className={collapsed ? styles.sidebar : styles.show_sidebar}
             style={stylesSidebar}
         >
             <div className={styles.header_sidebar}>
                 <div className={styles.card_img}>
-                    <img 
-                        src="/img/logo.png" 
-                        alt="logo" 
-                        width={'60px'} 
-                        height={'60px'} 
-                        style={{transition: '500ms'}}
+                    <img
+                        src="/img/logo.png"
+                        alt="logo"
+                        width={'60px'}
+                        height={'60px'}
+                        style={{ transition: '500ms' }}
                     />
-                    <h4>Movie manager</h4>
+                    {
+                        !collapsed && <h4>Movie manager</h4>
+                    }
                 </div>
             </div>
             <div className={styles.body_sidebar}>
                 <ul>
                     {
                         navs.map((nav, index) => (
-                            <li 
-                                key={index} 
-                                onClick={() => dispatch(actionChangeComponent(nav.component))}
-                                className={component === nav.component ? styles.active_nav : ''}
-                            >
-                                <span>
-                                    {nav.icon}
-                                    <p>{nav.label}</p>
-                                </span>
-                            </li>
+                            <Popover key={index} placement="right" content={<h4 style={{margin:0}}>{nav.label}</h4>}>
+                                <li
+                                    onClick={() => dispatch(actionChangeComponent(nav.component))}
+                                    className={component === nav.component ? styles.active_nav : ''}
+                                >
+                                    <span>
+                                        {nav.icon}
+                                        {
+                                            !collapsed && <p>{nav.label}</p>
+                                        }
+                                    </span>
+                                </li>
+                            </Popover>
                         ))
                     }
                 </ul>

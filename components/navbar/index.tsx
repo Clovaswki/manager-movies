@@ -4,41 +4,12 @@ import { Dropdown, Space } from 'antd';
 import { useSelector } from 'react-redux';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import IconButton from '@mui/material/IconButton'
+import { useRouter } from 'next/router';
 
 //styles 
 import styles from './index.module.css'
 
 import User from '../../services/User';
-
-const items: MenuProps['items'] = [
-    {
-        label: (
-            <a target="_blank">
-                Perfil
-            </a>
-        ),
-        key: '0',
-    },
-    {
-        label: (
-            <a target="_blank">
-                Info
-            </a>
-        ),
-        key: '1',
-    },
-    {
-        type: 'divider',
-    },
-    {
-        label: (
-            <a onClick={() => User.signOut()}>
-                Logout
-            </a>
-        ),
-        key: '3',
-    },
-];
 
 type TypeComponents = {
     label: string,
@@ -59,13 +30,44 @@ const components: TypeComponents[] = [
 
 
 const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
-
+    
     const { managerComponents, auth } = useSelector((state: any) => state)
-
+    
     const [labelComponent, setLabelComponent] = React.useState<string>()
+    const router = useRouter()
+    
+    const items: MenuProps['items'] = [
+        {
+            label: (
+                <a target="_blank">
+                    Perfil
+                </a>
+            ),
+            key: '0',
+        },
+        {
+            label: (
+                <a target="_blank">
+                    Info
+                </a>
+            ),
+            key: '1',
+        },
+        {
+            type: 'divider',
+        },
+        {
+            label: (
+                <a onClick={() => [User.signOut(), router.push('/')]}>
+                    Logout
+                </a>
+            ),
+            key: '3',
+        },
+    ];
 
     React.useEffect(() => {
-
+        
         findComponent()
 
     }, [managerComponents])
@@ -105,6 +107,7 @@ const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
                                 width={'40px'}
                                 height='40px'
                                 style={{ borderRadius: '50%', objectFit: 'cover' }}
+                                referrerpolicy="no-referrer"
                             />
 
                         </Space>

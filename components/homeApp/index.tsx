@@ -5,11 +5,17 @@ import { connect } from 'react-redux'
 //styles
 import styles from './index.module.css'
 
-import { Api, ApiPictures } from '../../services/ApiMovies'
+//components
+import CardMovie from '../cardMovie'
+import ModalShowInfoMovie from '../modalShowInfoMovie'
 
 const HomeApp: React.FC<any> = ({movies}) => {
 
   const [data, setData] = React.useState(movies)
+  const [openModalMovie, setOpenModalMovie] = React.useState<{open: boolean, content: null | any}>({
+    open: false,
+    content: null
+  })
 
   React.useEffect(() => {
 
@@ -37,39 +43,26 @@ const HomeApp: React.FC<any> = ({movies}) => {
   }, [])
 
   return (
+    <>
+    <ModalShowInfoMovie modalOpen={openModalMovie}/>
     <div className={styles.homeApp}>
-
+      <div className={styles.title_homeApp}>
+        <h3 style={{margin: 0, padding: '1rem'}}>Populares</h3>
+      </div>
       <div className={styles.movies}>
         {
           data.map((movie: any, index: number) => (
 
-            <div key={index} className={styles.card_movie}>
-              <img src={'https://image.tmdb.org/t/p/original/' + movie.poster_path} />
-              <div>
-                <Progress
-                  type='circle'
-                  percent={Number(movie.popularity.toString().slice(0, 2))}
-                  strokeColor={{ '10%': '#108ee9', '100%': '#87d068' }}
-                  width={80}
-                  trailColor='#fff'
-                  style={{
-                    zIndex: '20',
-                    position: 'absolute',
-                    color: '#fff',
-                    top: '-50px',
-                    right: '-150px'
-                  }}
-                />
-                <small>{movie.release_date}</small>
-                <h5>{movie.title}</h5>
-              </div>
-            </div>
+            <span key={index} onClick={() => setOpenModalMovie({open: true, content: movie})}>
+              <CardMovie data={movie}/>
+            </span>
 
           ))
         }
       </div> 
 
     </div>
+    </>
   )
 }
 

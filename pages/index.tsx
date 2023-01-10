@@ -75,6 +75,18 @@ const Signin = () => {
 
   };
 
+  const signinWithGoogle = async () => {
+
+    var response = await User.signInWithGoogle()
+    
+    if(response.code == 'auth/error' || !response.auth){
+      return errorMessage(response.message)
+    }
+
+    router.push('/home')
+
+  }
+
 
   return (
     <>
@@ -130,7 +142,14 @@ const Signin = () => {
                 <span className={styles.__line__}></span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button type="primary" icon={<GoogleOutlined />} size={'large'} loading={false} color='#fff'>
+                <Button 
+                  type="primary" 
+                  icon={<GoogleOutlined />} 
+                  size={'large'} 
+                  loading={false} 
+                  color='#fff'
+                  onClick={() => signinWithGoogle()}
+                >
                   Faça login com o google
                 </Button>
               </div>

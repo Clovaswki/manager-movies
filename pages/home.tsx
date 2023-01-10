@@ -48,7 +48,7 @@ const fetchMovies = async () => {
 const Home: React.FC<Props> = ({component, dispatch, movies }) => {
 
   const [componentChoosed, setComponentChoosed] = useState<ReactNode>()
-  const [collapsed, setCollapsed] = useState<boolean>(true)
+  const [collapsed, setCollapsed] = useState<boolean>(false)
 
   useEffect(() => {
 

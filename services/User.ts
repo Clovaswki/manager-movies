@@ -137,10 +137,22 @@ class User {
             let userIsCreated = await this.getUser('uid', user.uid)
 
             if(userIsCreated.user){
-                return {auth: true, ...user, token}
+
+                var sessionData = {
+                    ...userIsCreated.user as any,
+                    auth: true                 
+                }
+                
+                setUserLocalStorage(sessionData)
+
+                delete sessionData.id
+                
+                store.dispatch(actionUserAuth(sessionData))
+
+                return {auth: true, ...user, token, code: 'auth/exists'}
             }
 
-            return {auth: false, code: 'auth/dont-exists',message: 'Este usuário não existe!', ...user}
+            return {...user, auth: false, code: 'auth/dont-exists',message: 'Este usuário não existe!'}
         
         } catch (error: any) {
          
