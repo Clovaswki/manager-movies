@@ -8,13 +8,14 @@
     align-items: center;
 }
 
-.login_component .card_login{
+.card_login{
     width: 85%;
     height: 500px;
     border-radius: 14px;
     box-shadow: 10px 3px 10px rgba(0, 0, 0, .3);
     display: flex;
     color: #5c5858;
+    position: relative;
 }
 .card_login .background_login{
     flex: 1;
@@ -55,11 +56,44 @@
     flex: 1;
 }
 
+/*theme dark*/
+
+.login_component_dark{
+    width: 100%;
+    height: 100vh;
+    background-color: #2A323C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_component_dark .card_login{
+    box-shadow: 7px 7px 1px rgba(231, 229, 229, 0.1);
+}
+
+.login_component_dark  .form_login{
+    background-color: #323C48;
+}
+
+.login_component_dark .form_login h1,
+.login_component_dark .form_login .link_text,
+.login_component_dark .form_login .checkbox,
+.login_component_dark .form_login .card_divider
+{
+    color: #a5a4bd;
+}
+
+
+.login_component_dark input{
+    background: #3B4654;
+    color: #fff;
+}
+
 @media screen and (max-width: 750px){
-    .login_component{
+    .login_component, .login_component_dark{
         background-image: url(/img/wallpaper-movies.jpg);
     }
-    .login_component .card_login{
+    .login_component .card_login, .login_component_dark .card_login{
         height: 100%;
         width: 100%;
         border-radius: inherit;

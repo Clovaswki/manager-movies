@@ -1,24 +1,29 @@
-import Head from 'next/head'
-import Image from 'next/image'
-
-import styles from '../styles/Signin.module.css'
-
 import React, { useEffect } from "react";
 import { Button, Checkbox, Form, Input, message } from 'antd';
+import styles from '../styles/Signin.module.css'
+import { connect } from "react-redux";
 
 //icons
 import { GoogleOutlined } from '@ant-design/icons'
-import Link from 'next/link';
 
 //next
 import { useRouter } from 'next/router';
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link';
 
 //components
 import CardTitleLogin from '../components/cardTitleLogin';
+import SwitchTheme from "../components/switchTheme";
 
+//user services
 import User from '../services/User';
 
-const Signin = () => {
+type Props = {
+  theme: string
+}
+
+const Signin: React.FC<Props> = ({theme}) => {
 
   type User = {
     email: string,
@@ -87,13 +92,12 @@ const Signin = () => {
 
   }
 
-
   return (
     <>
     <Head>
       <title>Movies Manager | Login</title>
     </Head>
-    <div className={styles.login_component}>
+    <div className={theme === 'dark' ? styles.login_component_dark : styles.login_component}>
 
       {contextHolder}
 
@@ -102,7 +106,7 @@ const Signin = () => {
           <CardTitleLogin />
         </div>
         <div className={styles.form_login}>
-          {/* <SwitchTheme/> */}
+          <SwitchTheme/>
           <h1 style={{ margin: '1rem 0' }}>Login</h1>
 
           <Form
@@ -125,11 +129,11 @@ const Signin = () => {
               name="password"
               rules={[{ required: true, message: 'Please input your password!' }]}
             >
-              <Input.Password />
+              <Input.Password style={theme === 'dark' ? {background: '#3B4654'} : {}}/>
             </Form.Item>
 
             <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 0, span: 16 }}>
-              <Checkbox>Remember me</Checkbox>
+                <Checkbox className={styles.checkbox}>Remember me</Checkbox>
             </Form.Item>
 
             <Form.Item>
@@ -156,7 +160,9 @@ const Signin = () => {
             </Form.Item>
             <Form.Item>
 
-              Novo por aqui ? <Link href={'/register'}>registre-se</Link>
+              <div className={styles.link_text}>
+                Novo por aqui ? <Link href={'/register'}>registre-se</Link>
+              </div>
 
             </Form.Item>
           </Form>
@@ -169,4 +175,8 @@ const Signin = () => {
 
 }
 
-export default Signin
+const mapPropsToState = (state: any) => ({
+  theme: state.theme
+})
+
+export default connect(mapPropsToState)(Signin)

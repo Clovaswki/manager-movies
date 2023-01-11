@@ -12,9 +12,15 @@ import ProtectedLayout from '../components/protectedLayout';
 
 export default function App({ Component, pageProps }: AppProps) {
 
+  const [changeRoute, setChangeRoute] = React.useState<null | any>(null)
+
+  React.useEffect(() => {
+    setChangeRoute(Component)
+  }, [Component])
+
   return (
     <Provider store={store}>
-      <ProtectedLayout>
+      <ProtectedLayout changeRoute={changeRoute}>
         <Component {...pageProps} />
       </ProtectedLayout>
     </Provider>

@@ -16,20 +16,50 @@ import { useRouter } from 'next/router'
 //User class
 import User from '../../services/User'
 
+import usePersistentTheme from '../../utils/usePersistentTheme'
+import { actionChangeTheme } from '../../store/actions/theme'
+
 type Props = {
-    children: JSX.Element
+    children: JSX.Element,
+    changeRoute: any
 }
 
-const ProtectedLayout: React.FC<Props> = ({ children }) => {
+const ProtectedLayout: React.FC<Props> = ({ children, changeRoute }) => {
 
     const router = useRouter()
     // const user = useSelector((state: any) => (state.auth))
     const dispatch = useDispatch()
+    const themeSelected = useSelector((state: any) => (state.theme))
+    const [theme, setTheme] = usePersistentTheme<string>(themeSelected)
 
     React.useEffect(() => {
+     
+        const rola = () => {
+
+            if (auth) {
+        
+                let userData = getUserLocalStorage()
+    
+                if (userData) {
+                    router.push('/home')
+                    return dispatch(actionUserAuth(userData as any))
+                } else {
+                    User.signOut()
+                    router.route !== '/register' && router.push('/')
+                }
+                
+            } else {
+    
+                User.signOut()
+                router.route !== '/register' && router.push('/')
+        
+            }
+        }
+
+        rola()
 
         /*onAuthStateChanged(auth, userAuth => {
-         
+            
             if (userAuth) {
     
                 let userData = getUserLocalStorage()
@@ -50,8 +80,18 @@ const ProtectedLayout: React.FC<Props> = ({ children }) => {
             }
 
         })*/
-
+       
+    }, [auth, changeRoute])
+    
+    React.useEffect(() => {
+        dispatch(actionChangeTheme(theme))
     }, [])
+
+    React.useEffect(() => {
+
+        setTheme(themeSelected)
+
+    }, [themeSelected])
 
     return children
 }

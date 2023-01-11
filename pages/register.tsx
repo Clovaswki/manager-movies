@@ -23,6 +23,8 @@ import {
 
 //user service
 import User from '../services/User'
+import SwitchTheme from "../components/switchTheme";
+import { Dispatch } from "redux";
 
 
 type TypeCreateUser = {
@@ -33,7 +35,12 @@ type TypeCreateUser = {
     confirmPass: string
 }
 
-const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
+type Props = {
+    dispatch: Dispatch,
+    theme: string
+}
+
+const Signup: React.FC<Props> = ({ dispatch, theme }) => {
 
     const [picture, setPicture] = React.useState<UploadFile>();
     const [loading, setLoading] = React.useState<boolean>(false);
@@ -140,7 +147,7 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
             <Head>
                 <title>Movies Manager | Register</title>
             </Head>
-            <div className={styles.register_component}>
+            <div className={theme === 'dark' ? styles.register_component_dark :styles.register_component}>
 
                 <div className={styles.title_register}>
                     <div className="article_icon">
@@ -162,6 +169,10 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
                 <div className={styles.card_register}>
                     {contextHolder}
                     <div className={styles.card_register_child} style={{ position: 'relative' }}>
+
+                        <div>
+                            <SwitchTheme/>
+                        </div>
 
                         <div style={{ margin: '2rem 0' }}>
                             {/* <Title level={3}>crie sua conta como cliente</Title> */}
@@ -244,6 +255,7 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
                                         placeholder="Insira a sua senha"
                                         onChange={(event: any) => setForm((prev) => ({ ...prev, password: event.target.value }))}
                                         defaultValue={form.password}
+                                        style={theme === 'dark' ? {background: '#3B4654'} : {}}
                                     />
                                 </Form.Item>
 
@@ -271,6 +283,7 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
                                         placeholder="Repita a sua senha"
                                         onChange={(event: any) => setForm((prev) => ({ ...prev, confirmPass: event.target.value }))}
                                         defaultValue={form.confirmPass}
+                                        style={theme === 'dark' ? {background: '#3B4654'} : {}}
                                     />
                                 </Form.Item>
 
@@ -307,4 +320,8 @@ const Signup: React.FC<any> = ({ dispatch }: { dispatch: any }) => {
 
 }
 
-export default Signup
+const mapPropsToState = (state: any) => ({
+    theme: state.theme
+})
+
+export default connect(mapPropsToState)(Signup)

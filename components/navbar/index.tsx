@@ -107,7 +107,7 @@ const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
                                 width={'40px'}
                                 height='40px'
                                 style={{ borderRadius: '50%', objectFit: 'cover' }}
-                                referrerpolicy="no-referrer"
+                                // referrerpolicy="no-referrer"
                             />
 
                         </Space>
