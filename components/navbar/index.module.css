@@ -1,3 +1,4 @@
+
 .navbarApp {
     margin-top: 0;
     width: 100%;
@@ -6,7 +7,8 @@
     box-shadow: 1px 1px 10px rgba(0, 0, 0, .1);
     display: flex;
     align-items: center;
-    justify-content: space-between
+    justify-content: space-between;
+    position: relative;
 }
 
 .navbarApp h4{
@@ -43,9 +45,34 @@
     margin: 0;
 }
 
+/* theme dark */
+
+.navbarApp_dark{
+    margin-top: 0;
+    width: 100%;
+    height: 70px;
+    background: #323C48;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.navbarApp_dark h4{
+    margin-bottom: 0;
+    font-weight: 500;
+    color: #888f96;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 @media screen and (max-width: 750px){
 
     .logo_navbar{
+        width: 100px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
     }
     .btn_sidebar_hide{

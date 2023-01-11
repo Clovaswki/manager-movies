@@ -106,6 +106,46 @@
     box-shadow: 1px 6px 15px rgba(123, 75, 168, 0.2);
 }
 
+/* theme dark */
+
+.sidebar_dark{
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(2px);
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: 500ms;
+    background-color: #323C48;
+}
+
+.sidebar_dark .header_sidebar{
+    background: #888f96;
+    position: relative;
+    z-index: 10;
+}
+
+.sidebar_dark .header_sidebar h4{
+    color: #ffff;
+}
+
+.sidebar_dark .body_sidebar, .sidebar_dark .body_sidebar ul{
+    border-radius: 14px;
+    background: #474e57;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.sidebar_dark .body_sidebar ul li{
+    background: #7c828f;
+}
+
+.sidebar_dark .body_sidebar ul li span{
+    color: #ffff;
+}
+
+.sidebar_dark .body_sidebar .active_nav{
+    box-shadow: 2px 2px 1px #fff;
+}
+
 
 @media screen and (max-width: 750px) {
 

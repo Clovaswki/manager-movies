@@ -83,6 +83,11 @@
     animation: backgroundRegister 5s infinite alternate ease-in-out;
 }
 
+.register_component_dark .title_register{
+    backdrop-filter: blur(5px);
+    height: 100%;
+}
+
 .register_component_dark .card_register_child{
     background: #323C48;
     color: #a5a4bd;
@@ -91,19 +96,24 @@
 .register_component_dark .card_register_child input{
     background: #3B4654;
     color: #fff;
+    /* border: 1px solid #a5a4bd; */
+    border: 0;
 }
 
-.register_component_dark .card_register_child label{
+.register_component_dark .card_register_child input::placeholder{
     color: #a5a4bd;
 }
 
-.register_component_dark .card_register_child h5{
+.register_component_dark .card_register_child label,
+.register_component_dark .card_register_child h5
+{
     color: #a5a4bd;
 }
+
 
 @media (max-width: 800px){
 
-    .register_component{
+    .register_component, .register_component_dark{
         flex-direction: column;
     }
     .card_register{

@@ -4,6 +4,9 @@ import { Modal, Upload } from 'antd';
 import type { RcFile, UploadProps } from 'antd/es/upload';
 import type { UploadFile } from 'antd/es/upload/interface';
 
+//redux
+import { useSelector } from 'react-redux';
+
 const getBase64 = (file: RcFile): Promise<string> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -19,6 +22,8 @@ const UploadPicture: React.FC<any> = ({setPicture}:{setPicture: any}) => {
   const [fileList, setFileList] = useState<UploadFile[]>([
 
   ]);
+
+  const theme = useSelector((state: any) => (state.theme))
 
   const handleCancel = () => setPreviewOpen(false);
 
@@ -39,8 +44,12 @@ const UploadPicture: React.FC<any> = ({setPicture}:{setPicture: any}) => {
 
   const uploadButton = (
     <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
+      <PlusOutlined style={theme === 'dark' ? {color: '#fff'} : {}}/>
+      <div 
+        style={theme === 'dark' ? { color: '#fff', marginTop: 8 }: { marginTop: 8 }}
+      >
+        Upload
+      </div>
     </div>
   );
   return (

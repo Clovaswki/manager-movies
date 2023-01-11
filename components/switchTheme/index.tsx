@@ -6,10 +6,11 @@ import { Dispatch } from 'redux';
 
 type Props = {
     theme: string,
-    dispatch: Dispatch
+    dispatch: Dispatch, 
+    position?: string 
 }
 
-const SwitchTheme: React.FC<Props> = ({theme, dispatch}) => {
+const SwitchTheme: React.FC<Props> = ({theme, dispatch, position}) => {
     
     const [themeSelect, setThemeSelect] = useState<boolean>(false)
     
@@ -30,7 +31,11 @@ const SwitchTheme: React.FC<Props> = ({theme, dispatch}) => {
     };
 
     return (
-        <div style={{position: 'absolute', right: '1%', top: '3%'}}>
+        <div 
+            style={
+                {position: (position || 'absolute') as any, right: '1%', top: '3%'}
+            }
+        >
             <Switch onChange={() => changeTheme()} checked={themeSelect} />
         </div>
     )

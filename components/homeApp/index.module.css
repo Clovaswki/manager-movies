@@ -37,3 +37,33 @@
     flex-wrap: wrap;
     gap: 60px;
 }
+
+/* theme dark */
+
+.homeApp_dark{
+    width: 100%;
+    height: 89%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.homeApp_dark .title_homeApp{
+    background-color: #646f79;
+}
+.homeApp_dark .title_homeApp::after{
+    background-color:  rgb(87, 99, 112);
+    left: .3%;
+    box-shadow: 2px 2px 1px rgba(94, 101, 121, 0.8);
+}
+
+.homeApp_dark .title_homeApp h3{
+    color: #ccd1d4;
+}
+
+.homeApp_dark .movies{
+    background-color: #888f96;
+}

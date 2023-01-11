@@ -11,6 +11,9 @@ import styles from './index.module.css'
 
 import User from '../../services/User';
 
+//components
+import SwitchTheme from '../switchTheme';
+
 type TypeComponents = {
     label: string,
     component: string
@@ -31,7 +34,7 @@ const components: TypeComponents[] = [
 
 const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
     
-    const { managerComponents, auth } = useSelector((state: any) => state)
+    const { managerComponents, auth, theme } = useSelector((state: any) => state)
     
     const [labelComponent, setLabelComponent] = React.useState<string>()
     const router = useRouter()
@@ -47,7 +50,7 @@ const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
         },
         {
             label: (
-                <a target="_blank">
+                <a>
                     Info
                 </a>
             ),
@@ -80,7 +83,7 @@ const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
     }
 
     return (
-        <div className={styles.navbarApp}>
+        <div className={theme === 'dark' ? styles.navbarApp_dark : styles.navbarApp}>
             <div style={{display: 'flex', alignItems: 'center', marginLeft: '10px', gap: '10px'}}>
                 <span className={styles.btn_sidebar_hide}>
                     <IconButton 
@@ -91,6 +94,9 @@ const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
                     </IconButton>
                 </span>
                 <h4>{labelComponent}</h4>
+                <div>
+                    <SwitchTheme position='relative'/>
+                </div>
             </div>
             <div className={styles.logo_navbar}>
                 <img src="/img/logo.png" alt="logo" width={'50px'} height={'50px'} />

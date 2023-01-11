@@ -9,7 +9,7 @@ import styles from './index.module.css'
 import CardMovie from '../cardMovie'
 import ModalShowInfoMovie from '../modalShowInfoMovie'
 
-const HomeApp: React.FC<any> = ({movies}) => {
+const HomeApp: React.FC<any> = ({movies, theme}) => {
 
   const [data, setData] = React.useState(movies)
   const [openModalMovie, setOpenModalMovie] = React.useState<{open: boolean, content: null | any}>({
@@ -45,7 +45,7 @@ const HomeApp: React.FC<any> = ({movies}) => {
   return (
     <>
     <ModalShowInfoMovie modalOpen={openModalMovie}/>
-    <div className={styles.homeApp}>
+    <div className={theme === 'dark'? styles.homeApp_dark :styles.homeApp}>
       <div className={styles.title_homeApp}>
         <h3 style={{margin: 0, padding: '1rem'}}>Populares</h3>
       </div>
@@ -67,7 +67,8 @@ const HomeApp: React.FC<any> = ({movies}) => {
 }
 
 const mapPropsToState = (state: any) => ({
-  movies: state.dataMovies
+  movies: state.dataMovies,
+  theme: state.theme
 })
 
 export default connect(mapPropsToState)(HomeApp)

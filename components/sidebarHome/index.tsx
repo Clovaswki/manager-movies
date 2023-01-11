@@ -19,7 +19,8 @@ import styles from './index.module.css'
 type Props = {
     component: string,
     dispatch: Dispatch,
-    collapsed: boolean
+    collapsed: boolean,
+    theme: string
 }
 
 type Navs = {
@@ -28,16 +29,9 @@ type Navs = {
     component: string
 }
 
-const stylesSidebar: CSSProperties = {
-    boxShadow: '1px 1px 10px rgba(0, 0, 0, .2)',
-    backdropFilter: 'blur(2px)',
-    display: 'flex',
-    fontFamily: 'Arial, Helvetica, sans-serif',
-    transition: '500ms'
-}
 
-const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed }) => {
-
+const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed, theme }) => {
+    
     const navs: Navs[] = [
         { label: 'Home', icon: <HomeOutlinedIcon />, component: 'home' },
         { label: 'Categorias', icon: <WidgetsOutlinedIcon />, component: 'categories' },
@@ -45,9 +39,21 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed }) => {
         { label: 'Sobre', icon: <InfoOutlinedIcon />, component: 'about' },
     ]
 
+    const stylesSidebar: CSSProperties = {
+        boxShadow: '1px 1px 10px rgba(0, 0, 0, .2)',
+        backdropFilter: 'blur(2px)',
+        display: 'flex',
+        fontFamily: 'Arial, Helvetica, sans-serif',
+        transition: '500ms',
+        background: theme === 'dark' ? '#e78c8c' : 'inherit'
+    }
+
     return (
         <aside
-            className={collapsed ? styles.sidebar : styles.show_sidebar}
+            className={
+                (theme === 'dark' && styles.sidebar_dark)+' '+
+                (collapsed ? styles.sidebar : styles.show_sidebar)
+            }
             style={stylesSidebar}
         >
             <div className={styles.header_sidebar}>
@@ -90,7 +96,8 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed }) => {
 }
 
 const mapPropsToState = (state: any) => ({
-    component: state.managerComponents
+    component: state.managerComponents,
+    theme: state.theme
 })
 
 export default connect(mapPropsToState)(SidebarHome)

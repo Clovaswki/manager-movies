@@ -255,7 +255,7 @@ const Signup: React.FC<Props> = ({ dispatch, theme }) => {
                                         placeholder="Insira a sua senha"
                                         onChange={(event: any) => setForm((prev) => ({ ...prev, password: event.target.value }))}
                                         defaultValue={form.password}
-                                        style={theme === 'dark' ? {background: '#3B4654'} : {}}
+                                        style={theme === 'dark' ? {background: '#3B4654', border: '0'} : {}}
                                     />
                                 </Form.Item>
 
@@ -283,7 +283,7 @@ const Signup: React.FC<Props> = ({ dispatch, theme }) => {
                                         placeholder="Repita a sua senha"
                                         onChange={(event: any) => setForm((prev) => ({ ...prev, confirmPass: event.target.value }))}
                                         defaultValue={form.confirmPass}
-                                        style={theme === 'dark' ? {background: '#3B4654'} : {}}
+                                        style={theme === 'dark' ? {background: '#3B4654', border: '0'} : {}}
                                     />
                                 </Form.Item>
 

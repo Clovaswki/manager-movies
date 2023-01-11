@@ -2,6 +2,7 @@ import React, { useState, useEffect, ReactNode } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import Head from 'next/head';
+import styles from '../styles/Home.module.css'
 
 //components
 import SidebarHome from '../components/sidebarHome'
@@ -80,7 +81,7 @@ const Home: React.FC<Props> = ({component, dispatch, movies }) => {
     <Head>
       <title>Movies Manager | Home</title>
     </Head>
-    <div style={{display: 'flex', width: '100%', height: '100vh'}}>
+    <div style={{display: 'flex', width: '100%', height: '100vh'}} className={styles.home_app}>
       <SidebarHome collapsed={collapsed} />
       <div style={{flex: 1, background: '#F5F9FC'}}>
         
