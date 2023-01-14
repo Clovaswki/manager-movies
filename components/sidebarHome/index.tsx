@@ -45,7 +45,7 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed, theme })
         display: 'flex',
         fontFamily: 'Arial, Helvetica, sans-serif',
         transition: '500ms',
-        background: theme === 'dark' ? '#e78c8c' : 'inherit'
+        // background: theme === 'dark' ? '#e78c8c' : '#fff'
     }
 
     return (

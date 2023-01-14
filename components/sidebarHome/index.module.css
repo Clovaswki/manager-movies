@@ -130,8 +130,6 @@
 .sidebar_dark .body_sidebar, .sidebar_dark .body_sidebar ul{
     border-radius: 14px;
     background: #474e57;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
 }
 
 .sidebar_dark .body_sidebar ul li{
@@ -203,5 +201,11 @@
     
     .body_sidebar ul li span p {
         display: none;
+    }
+
+    .sidebar_dark .body_sidebar, .sidebar_dark .body_sidebar ul{
+        border-radius: 14px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 }
