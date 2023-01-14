@@ -50,6 +50,7 @@ const Home: React.FC<Props> = ({component, dispatch, movies }) => {
 
   const [componentChoosed, setComponentChoosed] = useState<ReactNode>()
   const [collapsed, setCollapsed] = useState<boolean>(false)
+  const [collapsedSearch, setCollapsedSearch] = useState<boolean>(true)
 
   useEffect(() => {
 
@@ -82,10 +83,17 @@ const Home: React.FC<Props> = ({component, dispatch, movies }) => {
       <title>Movies Manager | Home</title>
     </Head>
     <div style={{display: 'flex', width: '100%', height: '100vh'}} className={styles.home_app}>
-      <SidebarHome collapsed={collapsed} />
+      <SidebarHome 
+        collapsed={collapsed} 
+        setCollapsedSearch={setCollapsedSearch}
+      />
       <div style={{flex: 1, background: '#F5F9FC'}}>
         
-        <Navbar setCollapsed={setCollapsed} collapsed={collapsed}/>
+        <Navbar 
+          setCollapsed={setCollapsed} 
+          collapsed={collapsed}
+          collapsedSearch={collapsedSearch}
+        />
 
         {componentChoosed}
 

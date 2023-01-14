@@ -1,4 +1,3 @@
-
 .navbarApp {
     margin-top: 0;
     width: 100%;
@@ -11,32 +10,32 @@
     position: relative;
 }
 
-.navbarApp h4{
+.navbarApp h4 {
     margin-bottom: 0;
     font-weight: 500;
     color: #d67481;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.navbarApp .img_user{
+.navbarApp .img_user {
     cursor: pointer;
     outline: 0px solid rgb(179, 178, 178);
     outline-offset: 0px;
     transition: .5s;
 }
 
-.navbarApp .img_user:hover{
+.navbarApp .img_user:hover {
     outline: 2px solid rgb(179, 178, 178);
     outline-offset: 1.5px;
 }
 
-.logo_navbar{
+.logo_navbar {
     display: none;
     align-items: center;
     gap: 10px;
 }
 
-.logo_navbar h4{
+.logo_navbar h4 {
     color: #cf5050;
     font-weight: 700;
     font-size: 18px;
@@ -45,13 +44,44 @@
     margin: 0;
 }
 
+.search_navbar {
+    width: 50%;
+}
+
+.search_navbar span {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+}
+
+.search_navbar input {
+    background: #E7EDF9;
+    border-radius: 24px;
+    padding: 10px 15px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 28px;
+    width: 100%;
+}
+
+.search_navbar input:focus{
+    outline: 2px solid #919FB5;
+}
+
+.search_navbar input::placeholder{
+    color: #919FB5;
+}
+
 /* theme dark */
 
-.navbarApp_dark{
+.navbarApp_dark {
     margin-top: 0;
     width: 100%;
     height: 70px;
-    background: #323C48;
+    background: #434d5a;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, .1);
     display: flex;
     align-items: center;
@@ -59,24 +89,52 @@
     position: relative;
 }
 
-.navbarApp_dark h4{
+.navbarApp_dark h4 {
     margin-bottom: 0;
     font-weight: 500;
     color: #888f96;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-@media screen and (max-width: 750px){
+.navbarApp_dark .search_navbar input{
+    background: #657286;
+}
 
-    .logo_navbar{
+@media screen and (max-width: 750px) {
+
+    .logo_navbar {
         width: 100px;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
     }
-    .btn_sidebar_hide{
+
+    .btn_sidebar_hide {
         display: none;
     }
+    .search_navbar{
+        position: absolute;
+        display: block;
+        background-color: #ffff;
+        padding: 10px;
+        top: 0%;
+        opacity: 0%;
+        z-index: 20;
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, .05);
+        transition: 500ms;
+    }
+    .search_navbar input{
+        width: 100%;
+    }
+    .show_search_navbar{
+        display: block;
+        opacity: 100%;
+        top: 100%;
+    }
 
+    .navbarApp_dark .search_navbar{
+        background-color: #4b545e;
+    }
 }

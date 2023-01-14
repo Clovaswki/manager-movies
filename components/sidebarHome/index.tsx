@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, CSSProperties } from 'react'
+import React, { ReactNode, useEffect, CSSProperties, SetStateAction, Dispatch as dispatch } from 'react'
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Popover } from 'antd';
@@ -11,6 +11,7 @@ import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 
 //styles
 // import { Sidebar, HeaderSidebar, CardImg } from './styles'
@@ -20,7 +21,8 @@ type Props = {
     component: string,
     dispatch: Dispatch,
     collapsed: boolean,
-    theme: string
+    theme: string,
+    setCollapsedSearch: SetStateAction<dispatch<boolean | any>>
 }
 
 type Navs = {
@@ -30,7 +32,7 @@ type Navs = {
 }
 
 
-const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed, theme }) => {
+const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed, theme, setCollapsedSearch }) => {
     
     const navs: Navs[] = [
         { label: 'Home', icon: <HomeOutlinedIcon />, component: 'home' },
@@ -90,6 +92,9 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed, theme })
                         ))
                     }
                 </ul>
+                <span className={styles.btn_search_mobile} onClick={() => setCollapsedSearch(prev => !prev)}>
+                    <SearchTwoToneIcon style={{opacity: '50%'}}/>
+                </span>
             </div>
         </aside>
     )

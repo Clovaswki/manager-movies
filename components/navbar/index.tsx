@@ -6,6 +6,9 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import IconButton from '@mui/material/IconButton'
 import { useRouter } from 'next/router';
 
+//icons
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+
 //styles 
 import styles from './index.module.css'
 
@@ -21,7 +24,8 @@ type TypeComponents = {
 
 type Props = {
     setCollapsed: SetStateAction<Dispatch<boolean>> | any,
-    collapsed: boolean
+    collapsed: boolean,
+    collapsedSearch: boolean
 }
 
 const components: TypeComponents[] = [
@@ -32,7 +36,7 @@ const components: TypeComponents[] = [
 ]
 
 
-const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
+const Navbar: React.FC<Props> = ({setCollapsed, collapsed, collapsedSearch}) => {
     
     const { managerComponents, auth, theme } = useSelector((state: any) => state)
     
@@ -84,7 +88,7 @@ const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
 
     return (
         <div className={theme === 'dark' ? styles.navbarApp_dark : styles.navbarApp}>
-            <div style={{display: 'flex', alignItems: 'center', marginLeft: '10px', gap: '10px'}}>
+            <div style={{display: 'flex', alignItems: 'center', marginLeft: '10px', gap: '10px', zIndex: 50}}>
                 <span className={styles.btn_sidebar_hide}>
                     <IconButton 
                         onClick={() => setCollapsed((prev:boolean) => !prev)}
@@ -98,11 +102,17 @@ const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
                     <SwitchTheme position='relative'/>
                 </div>
             </div>
+            <div className={(!collapsedSearch && styles.show_search_navbar)+" "+(styles.search_navbar)}>
+                <span>
+                    <ContentPasteSearchIcon style={{opacity: '50%', fontSize: '40px', color: '#919FB5'}} />
+                    <input type="text" placeholder='Procurando por coisa boa...'/>
+                </span>
+            </div>
             <div className={styles.logo_navbar}>
                 <img src="/img/logo.png" alt="logo" width={'50px'} height={'50px'} />
                 <h4>Movie manager</h4>
             </div>
-            <div style={{ marginRight: '15px' }}>
+            <div style={{ marginRight: '15px', zIndex: 50 }}>
                 <Dropdown menu={{ items }}>
                     <a onClick={(e) => e.preventDefault()}>
                         <Space>
@@ -113,7 +123,7 @@ const Navbar: React.FC<Props> = ({setCollapsed, collapsed}) => {
                                 width={'40px'}
                                 height='40px'
                                 style={{ borderRadius: '50%', objectFit: 'cover' }}
-                                // referrerpolicy="no-referrer"
+                                referrerPolicy="no-referrer" 
                             />
 
                         </Space>
