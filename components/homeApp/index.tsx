@@ -9,9 +9,9 @@ import styles from './index.module.css'
 import CardMovie from '../cardMovie'
 import ModalShowInfoMovie from '../modalShowInfoMovie'
 
-const HomeApp: React.FC<any> = ({movies, theme}) => {
+const HomeApp: React.FC<any> = ({dataMovies, theme}) => {
 
-  const [data, setData] = React.useState(movies)
+  const [data, setData] = React.useState(dataMovies.movies)
   const [openModalMovie, setOpenModalMovie] = React.useState<{open: boolean, content: null | any}>({
     open: false,
     content: null
@@ -23,7 +23,7 @@ const HomeApp: React.FC<any> = ({movies, theme}) => {
 
       try {
 
-        var results = movies
+        var results = dataMovies.movies
 
         console.log(results)
 
@@ -67,7 +67,7 @@ const HomeApp: React.FC<any> = ({movies, theme}) => {
 }
 
 const mapPropsToState = (state: any) => ({
-  movies: state.dataMovies,
+  dataMovies: state.dataMovies,
   theme: state.theme
 })
 

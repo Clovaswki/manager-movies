@@ -24,16 +24,19 @@ interface TypeComponents {
 type Props = {
   component: string,
   dispatch: Dispatch,
-  movies: any
+  movies: any,
+  genres: any
 }
 
 export async function getStaticProps(){
 
   var movies = await fetchMovies()
+  var genres = await fetchGenres()
 
   return{
     props:{
-      movies: movies.results
+      movies: movies.results,
+      genres: genres
     }
   }
 
@@ -46,7 +49,15 @@ const fetchMovies = async () => {
   return response.data
 }
 
-const Home: React.FC<Props> = ({component, dispatch, movies }) => {
+const fetchGenres = async () => {
+
+  var response = await Api.get('genre/movie/list?language=en-US')
+
+  return response.data.genres
+
+}
+
+const Home: React.FC<Props> = ({component, dispatch, movies, genres }) => {
 
   const [componentChoosed, setComponentChoosed] = useState<ReactNode>()
   const [collapsed, setCollapsed] = useState<boolean>(false)
@@ -59,7 +70,7 @@ const Home: React.FC<Props> = ({component, dispatch, movies }) => {
   }, [component])
   
   useEffect(() => {
-    dispatch(actionDataMovies(movies))
+    dispatch(actionDataMovies({movies, genres}))
   }, [])
 
   const managerComponents = () => {
@@ -87,7 +98,14 @@ const Home: React.FC<Props> = ({component, dispatch, movies }) => {
         collapsed={collapsed} 
         setCollapsedSearch={setCollapsedSearch}
       />
-      <div style={{flex: 1, background: '#F5F9FC'}}>
+      <div style={{
+        flex: 1, 
+        background: '#F5F9FC', 
+        width: '100%', 
+        display: 'flex', 
+        flexDirection: 'column'
+        }}
+      >
         
         <Navbar 
           setCollapsed={setCollapsed} 

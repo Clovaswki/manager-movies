@@ -22,5 +22,8 @@ import { User } from "../types_state";
 //actions: data movies
     export interface TypeDataMovies extends Action{
         type: 'FETCH_DATA_MOVIES',
-        data: any[]
+        data: {
+            movies: any[],
+            genres: any
+        }
     }
