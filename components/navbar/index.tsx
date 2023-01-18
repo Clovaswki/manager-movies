@@ -1,10 +1,11 @@
 import React, { SetStateAction, Dispatch } from 'react'
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
-import { useSelector } from 'react-redux';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import IconButton from '@mui/material/IconButton'
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import { actionChangeComponent } from '../../store/actions/managerComponents';
 
 //icons
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
@@ -35,18 +36,18 @@ const components: TypeComponents[] = [
     { label: 'Perfil', component: 'profile'}
 ]
 
-
 const Navbar: React.FC<Props> = ({setCollapsed, collapsed, collapsedSearch}) => {
     
     const { managerComponents, auth, theme } = useSelector((state: any) => state)
-    
+    const dispatch = useDispatch()
+
     const [labelComponent, setLabelComponent] = React.useState<string>()
     const router = useRouter()
     
     const items: MenuProps['items'] = [
         {
             label: (
-                <a target="_blank">
+                <a target="_blank" onClick={() => dispatch(actionChangeComponent('profile'))}>
                     Perfil
                 </a>
             ),

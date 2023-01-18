@@ -98,14 +98,7 @@ const Home: React.FC<Props> = ({component, dispatch, movies, genres }) => {
         collapsed={collapsed} 
         setCollapsedSearch={setCollapsedSearch}
       />
-      <div style={{
-        flex: 1, 
-        background: '#F5F9FC', 
-        width: '100%', 
-        display: 'flex', 
-        flexDirection: 'column'
-        }}
-      >
+      <div className={styles.App_content}>
         
         <Navbar 
           setCollapsed={setCollapsed} 

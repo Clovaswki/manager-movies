@@ -238,4 +238,8 @@
     .btn_search_mobile{
         display: flex;
     }
+
+    .body_sidebar li[about=profile]{
+        display: none;
+    }
 }

@@ -80,6 +80,7 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed, theme, s
                                 <li
                                     onClick={() => dispatch(actionChangeComponent(nav.component))}
                                     className={component === nav.component ? styles.active_nav : ''}
+                                    about={nav.component}
                                 >
                                     <span>
                                         {
