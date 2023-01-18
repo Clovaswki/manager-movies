@@ -10,7 +10,6 @@ import { actionChangeComponent } from '../../store/actions/managerComponents';
 import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 
 //styles
@@ -22,7 +21,8 @@ type Props = {
     dispatch: Dispatch,
     collapsed: boolean,
     theme: string,
-    setCollapsedSearch: SetStateAction<dispatch<boolean | any>>
+    setCollapsedSearch: SetStateAction<dispatch<boolean | any>>,
+    user: any
 }
 
 type Navs = {
@@ -32,13 +32,13 @@ type Navs = {
 }
 
 
-const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed, theme, setCollapsedSearch }) => {
+const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed, theme, setCollapsedSearch, user }) => {
     
     const navs: Navs[] = [
         { label: 'Home', icon: <HomeOutlinedIcon />, component: 'home' },
         { label: 'Categorias', icon: <WidgetsOutlinedIcon />, component: 'categories' },
         { label: 'Favoritos', icon: <BookmarksOutlinedIcon />, component: 'favorites' },
-        { label: 'Sobre', icon: <InfoOutlinedIcon />, component: 'about' },
+        { label: 'Meu perfil', icon: null, component: 'profile' }
     ]
 
     const stylesSidebar: CSSProperties = {
@@ -82,7 +82,18 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed, theme, s
                                     className={component === nav.component ? styles.active_nav : ''}
                                 >
                                     <span>
-                                        {nav.icon}
+                                        {
+                                            nav.component === 'profile'
+                                            ? 
+                                            (user.picture &&
+                                                <img 
+                                                    src={user.picture} 
+                                                    style={{width: '30px', height: '30px', borderRadius: '40%'}}
+                                                />
+                                            )
+                                            :
+                                            nav.icon
+                                        }
                                         {
                                             !collapsed && <p>{nav.label}</p>
                                         }
@@ -102,7 +113,8 @@ const SidebarHome: React.FC<Props> = ({ component, dispatch, collapsed, theme, s
 
 const mapPropsToState = (state: any) => ({
     component: state.managerComponents,
-    theme: state.theme
+    theme: state.theme,
+    user: state.auth
 })
 
 export default connect(mapPropsToState)(SidebarHome)

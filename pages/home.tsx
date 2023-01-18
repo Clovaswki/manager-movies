@@ -8,8 +8,8 @@ import styles from '../styles/Home.module.css'
 import SidebarHome from '../components/sidebarHome'
 import HomeApp from '../components/homeApp'
 import FavoritesApp from '../components/favoritesApp'
+import Profile from '../components/profile';
 import Navbar from '../components/navbar'
-import About from '../components/about'
 import Categories from '../components/categories';
 
 //Api
@@ -78,8 +78,8 @@ const Home: React.FC<Props> = ({component, dispatch, movies, genres }) => {
     const components: TypeComponents[] = [
       {label: 'home', component: <HomeApp/>},
       {label: 'favorites', component: <FavoritesApp/>},
-      {label: 'about', component: <About/>},
-      {label: 'categories', component: <Categories/>}
+      {label: 'categories', component: <Categories/>},
+      {label: 'profile', component: <Profile/>}
     ]
 
     var choice_component: TypeComponents | undefined = components.find( c => c.label === component)

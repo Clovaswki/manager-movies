@@ -19,7 +19,7 @@ type CategoryMovies = {
 
 const Categories: React.FC<Props> = ({ dataMovies, theme }) => {
 
-  const [genres, setGenres] = React.useState<any[]>(dataMovies.genres.genres)
+  const [genres, setGenres] = React.useState<any[]>(dataMovies.genres)
   const [moviesByCategory, setMoviesByCategory] = React.useState<CategoryMovies[] | []>([])
 
   const scrollMove = (event: any, pos: string) => {
