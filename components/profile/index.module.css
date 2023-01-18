@@ -57,6 +57,14 @@
     position: relative;
     border: 2px solid lightgray;
     flex: 1;
+    min-width: 200px;
+    min-height: 200px;
+}
+
+.element_picture img[about=user_img]{
+    min-width: 200px;
+    min-height: 200px;
+    
 }
 
 .element_picture .background_img {
@@ -69,13 +77,13 @@
 
 .element_info_user {
     flex: 1;
-    background-color: #ECECEC;
+    background-color: #ecececc7;
     border-radius: 14px;
 }
 
 .info {
     flex: 1;
-    background-color: #ECECEC;
+    background-color: #ecececc7;
     border-radius: 14px;
     padding: 1rem;
 }
@@ -111,9 +119,26 @@
     padding: .8rem 1rem;
 }
 .body_info .info_card{
-    border: 1px solid #789ea76c;
+    /* border: 1px solid #789ea76c; */
     padding: 5px 15px;
     border-radius: 10px;
+}
+
+.info_card p{
+    position: relative;
+}
+
+.info_card p::after{
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 7px;
+    background-color: #4644D1;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 19%;
+    border-radius: 10px;
+    opacity: .6;
 }
 
 .body_info p {
@@ -156,13 +181,52 @@
     transform: translate(4px, 4px);
 }
 
+/* theme dark */
+.profile_component_dark{
+    background-color: #888f96;
+    color: #ffff;
+}
+
+.profile_component_dark .card_profileOrEdit{
+    background-color: #646f79;
+}
+
+.profile_component_dark .card_profileOrEdit span{
+    background-color: #3e4952;
+}
+
+.profile_component_dark .profile_info{
+    background-color: #646f79;
+}
+
+.profile_component_dark .element_info_user, .profile_component_dark .info{
+    background-color: #79879b;
+}
+
+.profile_component_dark .info h4{
+    color: rgba(255, 255, 255, 0.644);
+}
+
+.profile_component_dark .info p{
+    /* color: #a5a4bd; */
+    color: rgba(255, 255, 255, 0.644);
+}
+.profile_component_dark .info h5{
+    color: #ffff;
+}
+
+.profile_component_dark .edit_button{
+    background-color: #3e495296;
+}
+
 @media screen and (max-width: 700px) {
     .profile_component {
-        padding: 1rem 2rem;
+        padding: 1rem 0;
     }
 
     .profile_info {
         flex-direction: column;
+        padding: 1rem 2rem;
     }
 
     .element_picture {

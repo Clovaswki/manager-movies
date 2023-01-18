@@ -99,5 +99,8 @@
     .slider_button {
         display: none;
     }
+    .carrossel{
+        overflow: auto;
+    }
 
 }

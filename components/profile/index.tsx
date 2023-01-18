@@ -18,7 +18,11 @@ type Props = {
 const Profile: React.FC<Props> = ({user, theme}) => {
 
   return (
-    <div className={styles.profile_component}>
+    <div 
+      className={(theme === 'dark' && styles.profile_component_dark)
+      +" "+
+      styles.profile_component}
+    >
       <div className={styles.card_profileOrEdit}>
         <span></span>
         <h3 style={{margin: '0'}}>Meu perfil</h3>
@@ -27,7 +31,7 @@ const Profile: React.FC<Props> = ({user, theme}) => {
         <div className={styles.div_userPicture}>
           <div className={styles.element_picture}>
             <img src={user.picture} className={styles.background_img}/>
-            <img src={user.picture ? user.picture : '/img/spock.png'} alt={user.name} />
+            <img src={user.picture ? user.picture : '/img/spock.png'} alt={user.name} about='user_img'/>
           </div>
           <div className={styles.element_info_user}>
           </div>
