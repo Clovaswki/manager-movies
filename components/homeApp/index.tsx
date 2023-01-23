@@ -7,12 +7,12 @@ import styles from './index.module.css'
 
 //components
 import CardMovie from '../cardMovie'
-import ModalShowInfoMovie from '../modalShowInfoMovie'
+import ComponentMovie from '../componentMovie'
 
 const HomeApp: React.FC<any> = ({dataMovies, theme}) => {
 
   const [data, setData] = React.useState(dataMovies.movies)
-  const [openModalMovie, setOpenModalMovie] = React.useState<{open: boolean, content: null | any}>({
+  const [openComponentMovie, setOpenComponentMovie] = React.useState<{open: boolean, content: null | any}>({
     open: false,
     content: null
   })
@@ -40,11 +40,19 @@ const HomeApp: React.FC<any> = ({dataMovies, theme}) => {
       }
 
     }
+    console.log(dataMovies.movies)
+
   }, [])
 
   return (
     <>
-    <ModalShowInfoMovie modalOpen={openModalMovie}/>
+    {
+      openComponentMovie.open &&
+      <ComponentMovie 
+        setOpenComponentMovie={setOpenComponentMovie}
+        openComponentMovie={openComponentMovie}
+      />
+    }
     <div className={theme === 'dark'? styles.homeApp_dark :styles.homeApp}>
       <div className={styles.title_homeApp}>
         <h3 style={{margin: 0, padding: '1rem'}}>Populares</h3>
@@ -53,7 +61,7 @@ const HomeApp: React.FC<any> = ({dataMovies, theme}) => {
         {
           data.map((movie: any, index: number) => (
 
-            <span key={index} onClick={() => setOpenModalMovie({open: true, content: movie})}>
+            <span key={index} onClick={() => setOpenComponentMovie({open: true, content: movie})}>
               <CardMovie data={movie}/>
             </span>
 
