@@ -9,15 +9,13 @@ import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 //Api
 import { Api } from '../../services/ApiMovies';
 
-type State = { content: any, open: boolean }
+//home page context
+import UseHomePage from '../../contexts/homePage/homePage';
 
-type Props = {
-    setOpenComponentMovie: SetStateAction<Dispatch<State>> | any,
-    openComponentMovie: State
-}
+const ComponentMovie: React.FC = () => {
 
-const ComponentMovie: React.FC<Props> = ({ setOpenComponentMovie, openComponentMovie }) => {
-
+    const { setOpenComponentMovie, openComponentMovie } = UseHomePage()
+    
     const [content, setContent] = React.useState<any>(openComponentMovie.content)
     const [video, setVideo] = React.useState<any>(null)
     const [credits, setCredits] = React.useState<any>(null)
@@ -71,7 +69,7 @@ const ComponentMovie: React.FC<Props> = ({ setOpenComponentMovie, openComponentM
                 className={styles.moviePicture_card}
                 style={{ background: `url(https://image.tmdb.org/t/p/original${content.poster_path})`}}
             >
-                <div className={styles.close_button} onClick={() => setOpenComponentMovie({open: false})}>
+                <div className={styles.close_button} onClick={() => setOpenComponentMovie({open: false} as any)}>
                     <CloseIcon/>
                 </div>
             </div>
@@ -113,7 +111,7 @@ const ComponentMovie: React.FC<Props> = ({ setOpenComponentMovie, openComponentM
 
                         {
                             credits?.cast.map((item:any, index:number) => (
-                                <span>
+                                <span key={index}>
                                     <img 
                                         referrerPolicy='no-referrer' 
                                         src={"https://image.tmdb.org/t/p/original/"+item.profile_path}

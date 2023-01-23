@@ -7,6 +7,9 @@ import { connect } from 'react-redux'
 //components
 import CardMovie from '../cardMovie'
 
+//home page context
+import UseHomePage from '../../contexts/homePage/homePage'
+
 type Props = {
   dataMovies: any,
   theme: string
@@ -21,6 +24,7 @@ const Categories: React.FC<Props> = ({ dataMovies, theme }) => {
 
   const [genres, setGenres] = React.useState<any[]>(dataMovies.genres)
   const [moviesByCategory, setMoviesByCategory] = React.useState<CategoryMovies[] | []>([])
+  const { setOpenComponentMovie } = UseHomePage()
 
   const scrollMove = (event: any, pos: string) => {
 
@@ -98,7 +102,7 @@ const Categories: React.FC<Props> = ({ dataMovies, theme }) => {
 
               {
                 item.movies.map((movie: any, index: number) => (
-                  <span key={index}>
+                  <span key={index} onClick={() => setOpenComponentMovie({open: true, content: movie} as any)}>
                     <CardMovie data={movie} />
                   </span>
                 ))

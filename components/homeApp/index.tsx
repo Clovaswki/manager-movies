@@ -9,13 +9,13 @@ import styles from './index.module.css'
 import CardMovie from '../cardMovie'
 import ComponentMovie from '../componentMovie'
 
+//home page context
+import UseHomePage from '../../contexts/homePage/homePage'
+
 const HomeApp: React.FC<any> = ({dataMovies, theme}) => {
 
   const [data, setData] = React.useState(dataMovies.movies)
-  const [openComponentMovie, setOpenComponentMovie] = React.useState<{open: boolean, content: null | any}>({
-    open: false,
-    content: null
-  })
+  const { setOpenComponentMovie, openComponentMovie } = UseHomePage()
 
   React.useEffect(() => {
 
@@ -46,13 +46,6 @@ const HomeApp: React.FC<any> = ({dataMovies, theme}) => {
 
   return (
     <>
-    {
-      openComponentMovie.open &&
-      <ComponentMovie 
-        setOpenComponentMovie={setOpenComponentMovie}
-        openComponentMovie={openComponentMovie}
-      />
-    }
     <div className={theme === 'dark'? styles.homeApp_dark :styles.homeApp}>
       <div className={styles.title_homeApp}>
         <h3 style={{margin: 0, padding: '1rem'}}>Populares</h3>
@@ -61,7 +54,7 @@ const HomeApp: React.FC<any> = ({dataMovies, theme}) => {
         {
           data.map((movie: any, index: number) => (
 
-            <span key={index} onClick={() => setOpenComponentMovie({open: true, content: movie})}>
+            <span key={index} onClick={() => setOpenComponentMovie({open: true, content: movie} as any)}>
               <CardMovie data={movie}/>
             </span>
 

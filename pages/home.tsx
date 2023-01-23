@@ -16,6 +16,10 @@ import Categories from '../components/categories';
 import { Api } from '../services/ApiMovies'
 import { actionDataMovies } from '../store/actions/dataMovies'
 
+//home page context
+import { HomePage } from '../contexts/homePage/HomePageContext';
+import ComponentMovie from '../components/componentMovie';
+
 interface TypeComponents {
   label: string,
   component: ReactNode
@@ -63,6 +67,12 @@ const Home: React.FC<Props> = ({component, dispatch, movies, genres }) => {
   const [collapsed, setCollapsed] = useState<boolean>(false)
   const [collapsedSearch, setCollapsedSearch] = useState<boolean>(true)
 
+  const [openComponentMovie, setOpenComponentMovie] = React.useState<{open: boolean, content: null | any}>({
+    open: false,
+    content: null
+  })
+
+
   useEffect(() => {
 
     managerComponents()
@@ -93,23 +103,30 @@ const Home: React.FC<Props> = ({component, dispatch, movies, genres }) => {
     <Head>
       <title>Movies Manager | Home</title>
     </Head>
-    <div style={{display: 'flex', width: '100%', height: '100vh'}} className={styles.home_app}>
-      <SidebarHome 
-        collapsed={collapsed} 
-        setCollapsedSearch={setCollapsedSearch}
-      />
-      <div className={styles.App_content}>
-        
-        <Navbar 
-          setCollapsed={setCollapsed} 
-          collapsed={collapsed}
-          collapsedSearch={collapsedSearch}
+    <HomePage.Provider value={{openComponentMovie, setOpenComponentMovie}}>
+      <div style={{display: 'flex', width: '100%', height: '100vh'}} className={styles.home_app}>
+        <SidebarHome 
+          collapsed={collapsed} 
+          setCollapsedSearch={setCollapsedSearch}
         />
+        <div className={styles.App_content}>
+          
+          <Navbar 
+            setCollapsed={setCollapsed} 
+            collapsed={collapsed}
+            collapsedSearch={collapsedSearch}
+          />
 
-        {componentChoosed}
+          {
+            openComponentMovie.open &&
+            <ComponentMovie/>
+          }
 
+          {componentChoosed}
+
+        </div>
       </div>
-    </div>
+    </HomePage.Provider>
     </>
   )
 }
