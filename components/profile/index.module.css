@@ -233,4 +233,8 @@
         min-height: 120px;
         min-width: 120px;
     }
+
+    .body_info h5{
+        font-size: 16px;
+    }
 }

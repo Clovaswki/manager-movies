@@ -1,10 +1,13 @@
-import React, { SetStateAction, Dispatch } from 'react'
+import React from 'react'
 import styles from './index.module.css'
+import { connect } from 'react-redux';
 
 //icons
 import CloseIcon from '@mui/icons-material/Close';
 import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 
 //Api
 import { Api } from '../../services/ApiMovies';
@@ -12,7 +15,11 @@ import { Api } from '../../services/ApiMovies';
 //home page context
 import UseHomePage from '../../contexts/homePage/homePage';
 
-const ComponentMovie: React.FC = () => {
+type Props = {
+    theme: string
+}
+
+const ComponentMovie: React.FC<Props> = ({theme}) => {
 
     const { setOpenComponentMovie, openComponentMovie } = UseHomePage()
     
@@ -64,13 +71,20 @@ const ComponentMovie: React.FC = () => {
     }, [credits])
 
     return (
-        <div className={styles.movie_component}>
+        <div 
+            className={(theme === 'dark' && styles.movie_component_dark)+" "+styles.movie_component}
+        >
             <div
                 className={styles.moviePicture_card}
                 style={{ background: `url(https://image.tmdb.org/t/p/original${content.poster_path})`}}
             >
-                <div className={styles.close_button} onClick={() => setOpenComponentMovie({open: false} as any)}>
-                    <CloseIcon/>
+                <div className={styles.buttons}>
+                    <div className={styles.close_button} onClick={() => setOpenComponentMovie({open: false} as any)}>
+                        <CloseIcon/>
+                    </div>
+                    <div className={styles.save_button}>
+                        <BookmarksOutlinedIcon/>
+                    </div>
                 </div>
             </div>
             <div className={styles.infoMovie_section}>
@@ -129,4 +143,8 @@ const ComponentMovie: React.FC = () => {
     )
 }
 
-export default ComponentMovie
+const mapPropsToState = (state: any) => ({
+    theme: state.theme
+})
+
+export default connect(mapPropsToState)(ComponentMovie)

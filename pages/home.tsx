@@ -76,6 +76,8 @@ const Home: React.FC<Props> = ({component, dispatch, movies, genres }) => {
   useEffect(() => {
 
     managerComponents()
+
+    setOpenComponentMovie({open: false})
     
   }, [component])
   

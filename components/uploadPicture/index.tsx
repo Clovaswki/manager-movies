@@ -15,7 +15,7 @@ const getBase64 = (file: RcFile): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-const UploadPicture: React.FC<any> = ({setPicture}:{setPicture: any}) => {
+const UploadPicture: React.FC<any> = ({setPicture}) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -59,7 +59,7 @@ const UploadPicture: React.FC<any> = ({setPicture}:{setPicture: any}) => {
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
-        disabled={false}
+        disabled={false}  
       >
         {fileList.length >= 1  ? null : uploadButton}
       </Upload>

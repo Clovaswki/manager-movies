@@ -9,7 +9,8 @@ import {
     doc,
     getDoc,
     query,
-    where
+    where,
+    updateDoc
 } from "firebase/firestore";
 
 import {
@@ -18,7 +19,8 @@ import {
     UserCredential,
     signOut,
     signInWithPopup,
-    GoogleAuthProvider
+    GoogleAuthProvider,
+    updateEmail
 } from "firebase/auth";
 
 import { database, auth } from "./firebase";
@@ -30,12 +32,13 @@ import store from "../store";
 import { LoginUser, RegisterUser, IUser, IUserDocConverting } from "./types";
 
 //others
-import { setUserLocalStorage } from "../utils/userLocalStorage";
+import { getUserLocalStorage, setUserLocalStorage } from "../utils/userLocalStorage";
 import { actionUserAuth } from "../store/actions/userAuth";
 
 class User {
 
     private collection = collection(database, 'users')
+    private userReference = (id: string) => doc(database, "users", id)
 
     private dataListConverting(data: Object | any) {
         return data.docs.map((doc: any) => ({ id: doc.id, ...doc.data() }))
@@ -76,13 +79,13 @@ class User {
 
             var newUser = await addDoc(this.collection, {
                 uid: '',
-                name, 
+                name,
                 email,
                 picture
             })
-            
+
             var user: UserCredential = await createUserWithEmailAndPassword(auth, email, password)
-            
+
             return user ? { success: true, ...newUser } : { success: false, message: 'Erro interno!' }
 
         } catch (error: Object | any) {
@@ -93,30 +96,30 @@ class User {
     }
 
     //create a user by google
-    public async createUserWithGoogle(){
-        
+    public async createUserWithGoogle() {
+
         let response = await this.signInWithGoogle()
 
         try {
-            
-            if(response.code === 'auth/dont-exists'){
-                
+
+            if (response.code === 'auth/dont-exists') {
+
                 let { email, displayName, photoURL, uid } = response as any
-    
+
                 var newUser = await addDoc(this.collection, {
                     uid,
-                    name: displayName, 
+                    name: displayName,
                     email,
                     picture: photoURL
                 })
-    
+
                 return user ? { success: true, ...newUser } : { success: false, message: 'Erro interno!' }
-    
-            }else{
-                return {success: false, message: response.message}
+
+            } else {
+                return { success: false, message: response.message }
             }
         } catch (error) {
-            return {success: false, message: 'Erro interno!', error}
+            return { success: false, message: 'Erro interno!', error }
         }
 
     }
@@ -126,44 +129,44 @@ class User {
         let provider = new GoogleAuthProvider()
 
         try {
-         
+
             let result = await signInWithPopup(auth, provider)
-                
+
             const credential = GoogleAuthProvider.credentialFromResult(result)
             const token = credential?.accessToken
-    
+
             const user = result.user
 
             let userIsCreated = await this.getUser('uid', user.uid)
 
-            if(userIsCreated.user){
+            if (userIsCreated.user) {
 
                 var sessionData = {
                     ...userIsCreated.user as any,
-                    auth: true                 
+                    auth: true
                 }
-                
+
                 setUserLocalStorage(sessionData)
 
                 delete sessionData.id
-                
+
                 store.dispatch(actionUserAuth(sessionData))
 
-                return {auth: true, ...user, token, code: 'auth/exists'}
+                return { auth: true, ...user, token, code: 'auth/exists' }
             }
 
-            return {...user, auth: false, code: 'auth/dont-exists',message: 'Este usuário não existe!'}
-        
+            return { ...user, auth: false, code: 'auth/dont-exists', message: 'Este usuário não existe!' }
+
         } catch (error: any) {
-         
+
             // Handle Errors here.
             const errorCode = error.code;
             const errorMessage = error.message;
             const credential = GoogleAuthProvider.credentialFromError(error);
-            
+
             console.log(credential)
 
-            return {auth: false, code: 'auth/error', message: errorMessage}
+            return { auth: false, code: 'auth/error', message: errorMessage }
         }
     }
 
@@ -181,10 +184,11 @@ class User {
 
                 var dataUser: IUserDocConverting = await this.getUser('email', email)
 
-                var { email, name, uid, picture } = dataUser.user 
+                var { email, name, uid, picture, id } = dataUser.user
 
                 var dataSession = {
                     auth: true,
+                    id: id,
                     email: email,
                     name: name,
                     picture: picture,
@@ -240,7 +244,7 @@ class User {
     public signOut() {
         signOut(auth)
         setUserLocalStorage(null)
-        store.dispatch(actionUserAuth({auth: false} as any))
+        store.dispatch(actionUserAuth({ auth: false } as any))
     }
 
     //error handling: firebase authentication 
@@ -267,6 +271,44 @@ class User {
 
     //check user is authenticated
     public checkIsAuthenticated() {
+
+    }
+
+    public async changeUserData(data: any) {
+
+        let userData = getUserLocalStorage()
+
+        let filter_userData = Object.entries(userData).filter(array => {
+            return Object.keys(data).some(key => array[0] === key)
+        })
+
+        if (filter_userData.every(arr => data[arr[0]] === arr[1])) {
+
+            return { message: "Nenhuma alteração!", success: false }
+
+        }
+
+        if (data.email !== userData.email) {
+            try {
+                await updateEmail(auth.currentUser as any, data.email)
+            } catch (error) {
+                return { message: "Erro interno", success: false }
+            }
+        }
+
+        for (var item of Object.keys(data)) {
+            userData[item] = data[item]
+        }
+
+        setUserLocalStorage(userData)
+
+        store.dispatch(actionUserAuth(userData))
+
+        delete userData.auth
+
+        await updateDoc(this.userReference(userData.id), userData)
+
+        return { message: "Alterado com sucesso", success: true, userData }
 
     }
 
