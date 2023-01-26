@@ -54,7 +54,7 @@ const HomeApp: React.FC<any> = ({dataMovies, theme}) => {
         {
           data.map((movie: any, index: number) => (
 
-            <span key={index} onClick={() => setOpenComponentMovie({open: true, content: movie} as any)}>
+            <span key={index}>
               <CardMovie data={movie}/>
             </span>
 

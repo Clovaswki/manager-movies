@@ -24,6 +24,7 @@ import { User } from "../types_state";
         type: 'FETCH_DATA_MOVIES',
         data: {
             movies: any[],
-            genres: any
+            genres: any,
+            saveMovies: any
         }
     }

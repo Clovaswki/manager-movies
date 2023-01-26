@@ -15,6 +15,9 @@ import { Api } from '../../services/ApiMovies';
 //home page context
 import UseHomePage from '../../contexts/homePage/homePage';
 
+//movie save hook
+import useSaveMovie from '../../customHooks/saveMovie';
+
 type Props = {
     theme: string
 }
@@ -26,6 +29,7 @@ const ComponentMovie: React.FC<Props> = ({theme}) => {
     const [content, setContent] = React.useState<any>(openComponentMovie.content)
     const [video, setVideo] = React.useState<any>(null)
     const [credits, setCredits] = React.useState<any>(null)
+    const [movieSave, setMovieSave] = useSaveMovie(content)
 
     React.useEffect(() => {
         setContent(openComponentMovie.content)
@@ -82,8 +86,13 @@ const ComponentMovie: React.FC<Props> = ({theme}) => {
                     <div className={styles.close_button} onClick={() => setOpenComponentMovie({open: false} as any)}>
                         <CloseIcon/>
                     </div>
-                    <div className={styles.save_button}>
-                        <BookmarksOutlinedIcon/>
+                    <div className={styles.save_button} onClick={() => setMovieSave({changeStateSave: true} as any)}>
+                        {
+                            movieSave.isSave ?
+                                <BookmarksIcon/>
+                            :
+                                <BookmarksOutlinedIcon/>
+                        }
                     </div>
                 </div>
             </div>

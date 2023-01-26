@@ -15,6 +15,7 @@ import Categories from '../components/categories';
 //Api
 import { Api } from '../services/ApiMovies'
 import { actionDataMovies } from '../store/actions/dataMovies'
+import Movie from '../services/Movie';
 
 //home page context
 import { HomePage } from '../contexts/homePage/HomePageContext';
@@ -29,18 +30,21 @@ type Props = {
   component: string,
   dispatch: Dispatch,
   movies: any,
-  genres: any
+  genres: any,
+  saveMovies: any
 }
 
 export async function getStaticProps(){
 
   var movies = await fetchMovies()
   var genres = await fetchGenres()
+  var saveMovies = await fetchSaveMovies()
 
   return{
     props:{
       movies: movies.results,
-      genres: genres
+      genres: genres,
+      saveMovies
     }
   }
 
@@ -61,7 +65,15 @@ const fetchGenres = async () => {
 
 }
 
-const Home: React.FC<Props> = ({component, dispatch, movies, genres }) => {
+const fetchSaveMovies = async () => {
+
+  var response = await Movie.getSaveMovies()
+
+  return response.docs
+
+}
+
+const Home: React.FC<Props> = ({component, dispatch, movies, genres, saveMovies }) => {
 
   const [componentChoosed, setComponentChoosed] = useState<ReactNode>()
   const [collapsed, setCollapsed] = useState<boolean>(false)
@@ -77,12 +89,12 @@ const Home: React.FC<Props> = ({component, dispatch, movies, genres }) => {
 
     managerComponents()
 
-    setOpenComponentMovie({open: false})
+    setOpenComponentMovie({open: false, content: null} as {open: boolean, content: any})
     
   }, [component])
   
   useEffect(() => {
-    dispatch(actionDataMovies({movies, genres}))
+    dispatch(actionDataMovies({movies, genres, saveMovies}))
   }, [])
 
   const managerComponents = () => {

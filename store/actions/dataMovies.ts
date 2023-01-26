@@ -4,6 +4,7 @@ export const actionDataMovies = (data: any): TypeDataMovies => ({
     type: 'FETCH_DATA_MOVIES',
     data: {
         movies: data.movies,
-        genres: data.genres
+        genres: data.genres,
+        saveMovies: data.saveMovies
     }
 })
