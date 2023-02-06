@@ -14,38 +14,14 @@ import UseHomePage from '../../contexts/homePage/homePage'
 
 const HomeApp: React.FC<any> = ({dataMovies, theme}) => {
 
-  const [data, setData] = React.useState(dataMovies.movies)
+  const [data, setData] = React.useState(dataMovies.movies.docs)
   const { setOpenComponentMovie, openComponentMovie } = UseHomePage()
 
-  React.useEffect(() => {
-
-    async function fetchData() {
-
-      try {
-
-        var results = dataMovies.movies
-
-        console.log(results)
-
-        results.forEach((result: any) => {
-
-          result.release_date = result.release_date.split('-')[0]
-
-        })
-
-        setData(results)
-
-      } catch (error) {
-        console.log(error)
-      }
-
-    }
-    console.log(dataMovies.movies)
-
-  }, [])
+  React.useEffect(() => { 
+    setData(dataMovies.movies.docs)
+  }, [dataMovies])
 
   return (
-    <>
     <div className={theme === 'dark'? styles.homeApp_dark :styles.homeApp}>
       <div className={styles.title_homeApp}>
         <h3 style={{margin: 0, padding: '1rem'}}>Populares</h3>
@@ -61,9 +37,7 @@ const HomeApp: React.FC<any> = ({dataMovies, theme}) => {
           ))
         }
       </div> 
-
     </div>
-    </>
   )
 }
 

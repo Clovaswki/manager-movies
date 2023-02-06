@@ -22,7 +22,7 @@ type CategoryMovies = {
 
 const Categories: React.FC<Props> = ({ dataMovies, theme }) => {
 
-  const [genres, setGenres] = React.useState<any[]>(dataMovies.genres)
+  const [genres, setGenres] = React.useState<any[]>(dataMovies.genres.docs)
   const [moviesByCategory, setMoviesByCategory] = React.useState<CategoryMovies[] | []>([])
   const { setOpenComponentMovie } = UseHomePage()
 
@@ -62,7 +62,7 @@ const Categories: React.FC<Props> = ({ dataMovies, theme }) => {
   
         let movies_by_category: any[] = []
   
-        dataMovies.movies.forEach((movie: any) => {
+        dataMovies.movies.docs.forEach((movie: any) => {
   
           if (movie.genre_ids.includes(genre.id)) {
             movies_by_category.push(movie)

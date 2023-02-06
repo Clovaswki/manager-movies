@@ -7,27 +7,26 @@ import { message } from 'antd'
 import UseHomePage from '../../contexts/homePage/homePage';
 
 //redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 //icons
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 
-//movie class
-import Movie from '../../services/Movie';
-import { actionDataMovies } from '../../store/actions/dataMovies';
-
 //save hook
-import useSaveMovie from '../../customHooks/saveMovie';
+import useHandleSaveMovie from '../../customHooks/useHandleSaveMovie';
 
 const CardMovie: React.FC<any> = ({data}) => {
     
     //data context
     const { setOpenComponentMovie } = UseHomePage()
+
+    //redux data
+    const dataMovies = useSelector((state:any) => (state.dataMovies))
     
     //states
     const [messageApi, contextHolder] = message.useMessage();
-    const [saveMovie, setSaveMovie] = useSaveMovie(data)
+    const [saveMovie, setSaveMovie] = useHandleSaveMovie(data)
 
     const errorMessage = (message: string, type: any) => {
       messageApi.open({

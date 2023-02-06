@@ -12,10 +12,9 @@ import Profile from '../components/profile';
 import Navbar from '../components/navbar'
 import Categories from '../components/categories';
 
-//Api
-import { Api } from '../services/ApiMovies'
-import { actionDataMovies } from '../store/actions/dataMovies'
+//Api class
 import Movie from '../services/Movie';
+import { actionDataMovies } from '../store/actions/dataMovies'
 
 //home page context
 import { HomePage } from '../contexts/homePage/HomePageContext';
@@ -36,40 +35,17 @@ type Props = {
 
 export async function getStaticProps(){
 
-  var movies = await fetchMovies()
-  var genres = await fetchGenres()
-  var saveMovies = await fetchSaveMovies()
+  let movies = await Movie.fetchMovies()
+  let genres = await Movie.fetchGenres()
+  let saveMovies = await Movie.getSaveMovies()
 
   return{
     props:{
-      movies: movies.results,
-      genres: genres,
+      movies,
+      genres,
       saveMovies
     }
   }
-
-}
-
-const fetchMovies = async () => {
-
-  var response = await Api.get('/movie/popular?language=en-US&page=1')
-
-  return response.data
-}
-
-const fetchGenres = async () => {
-
-  var response = await Api.get('genre/movie/list?language=en-US')
-
-  return response.data.genres
-
-}
-
-const fetchSaveMovies = async () => {
-
-  var response = await Movie.getSaveMovies()
-
-  return response.docs
 
 }
 

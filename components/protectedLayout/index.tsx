@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 //User class
 import User from '../../services/User'
 
-import usePersistentTheme from '../../utils/usePersistentTheme'
+import usePersistentTheme from '../../customHooks/usePersistentTheme'
 import { actionChangeTheme } from '../../store/actions/theme'
 
 type Props = {
@@ -34,7 +34,7 @@ const ProtectedLayout: React.FC<Props> = ({ children, changeRoute }) => {
 
     React.useEffect(() => {
      
-        const rola = () => {
+        const managerAuth = () => {
 
             if (auth) {
         
@@ -56,7 +56,7 @@ const ProtectedLayout: React.FC<Props> = ({ children, changeRoute }) => {
             }
         }
 
-        rola()
+        managerAuth()
 
         /*onAuthStateChanged(auth, userAuth => {
             

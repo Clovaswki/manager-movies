@@ -16,7 +16,7 @@ import { Api } from '../../services/ApiMovies';
 import UseHomePage from '../../contexts/homePage/homePage';
 
 //movie save hook
-import useSaveMovie from '../../customHooks/saveMovie';
+import useHandleSaveMovie from '../../customHooks/useHandleSaveMovie';
 
 type Props = {
     theme: string
@@ -29,7 +29,7 @@ const ComponentMovie: React.FC<Props> = ({theme}) => {
     const [content, setContent] = React.useState<any>(openComponentMovie.content)
     const [video, setVideo] = React.useState<any>(null)
     const [credits, setCredits] = React.useState<any>(null)
-    const [movieSave, setMovieSave] = useSaveMovie(content)
+    const [movieSave, setMovieSave] = useHandleSaveMovie(content)
 
     React.useEffect(() => {
         setContent(openComponentMovie.content)

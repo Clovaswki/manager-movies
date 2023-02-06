@@ -25,6 +25,10 @@ import { User } from "../types_state";
         data: {
             movies: any[],
             genres: any,
-            saveMovies: any
+            saveMovies: {
+                id: string,
+                movieId: string,
+                name: string
+            }[]
         }
     }

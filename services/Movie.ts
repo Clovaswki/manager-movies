@@ -17,7 +17,8 @@ import { database } from "./firebase";
 //Api
 import { Api } from "./ApiMovies"
 
-//
+//store
+import store from "../store";
 
 type IMovie = {
     id: string ,
@@ -73,13 +74,13 @@ class MovieClass{
 
             var list = this.dataListConverting(response)
             
-            return { docs: list, success: true, message: '' }
+            return this.convertObject({ docs: list, success: true, message: '' })
 
         } catch (error) {
             
             console.log(error)
 
-            return { docs: [], success: false, message: 'Erro interno!' }
+            return this.convertObject({ docs: [], success: false, message: 'Erro interno!' })
 
         }
 
@@ -101,6 +102,47 @@ class MovieClass{
             console.log(error)
             return { success: false, movie: {id: ''} }
         }
+
+    }
+
+    //fetch all movies of themovie api
+    public async fetchMovies(){
+
+        try {
+            let response = await Api.get('/movie/popular?language=en-US&page=1')
+            
+            return this.convertObject({ docs: response.data.results, success: true })
+        } catch (error) {
+            console.log(error)
+            
+            return this.convertObject({ docs: [], success: false })
+        }
+        
+        
+    }
+    
+    //fetch all movie genres of themovie api
+    public async fetchGenres(){
+
+        try {
+            let response = await Api.get('genre/movie/list?language=en-US')
+            
+            return this.convertObject({ docs: response.data.genres, success: true})
+        } catch (error) {
+            console.log(error)
+
+            return this.convertObject({ docs: [], success: false})
+        }
+
+    }
+
+    private convertObject(object: Object){
+
+        let convert_one = JSON.stringify(object)
+
+        let convert_two = JSON.parse(convert_one)
+
+        return convert_two
 
     }
 
