@@ -56,7 +56,7 @@ const ProtectedLayout: React.FC<Props> = ({ children, changeRoute }) => {
             }
         }
 
-        managerAuth()
+        // managerAuth()
 
         /*onAuthStateChanged(auth, userAuth => {
             

@@ -148,7 +148,7 @@ class User {
 
                 setUserLocalStorage(sessionData)
 
-                delete sessionData.id
+                // delete sessionData.id
 
                 store.dispatch(actionUserAuth(sessionData))
 

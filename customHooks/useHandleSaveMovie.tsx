@@ -57,10 +57,12 @@ function useHandleSaveMovie(data: any): IState{
             let { id, original_title } = data
             let movie = dataMovies.saveMovies.docs.find((movie:any) => movie.movieId === id )
     
-            let data_movie: {movieId: string, name: string, id: string}
+            let data_movie: {movieId: string, name: string, id: string, userId?: string}
+
+            let userId = store.getState().auth.id
 
             if(movie === undefined){//check if movie is save or not
-                data_movie = { movieId: id, name: original_title, id: '' }
+                data_movie = { movieId: id, name: original_title, id: '', userId }
                 dataMovies.saveMovies.docs = [...dataMovies.saveMovies.docs, data_movie]
                 dispatch(actionDataMovies(dataMovies))
             }else{

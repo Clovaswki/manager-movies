@@ -1,3 +1,4 @@
+import { filterSaveMovies } from "../../utils/filterSaveMovies"
 import { TypeDataMovies } from "./types_action"
 
 export const actionDataMovies = (data: any): TypeDataMovies => ({
@@ -5,6 +6,6 @@ export const actionDataMovies = (data: any): TypeDataMovies => ({
     data: {
         movies: data.movies,
         genres: data.genres,
-        saveMovies: data.saveMovies
+        saveMovies: filterSaveMovies(data.saveMovies)
     }
 })

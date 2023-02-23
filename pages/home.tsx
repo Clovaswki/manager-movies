@@ -11,6 +11,7 @@ import FavoritesApp from '../components/favoritesApp'
 import Profile from '../components/profile';
 import Navbar from '../components/navbar'
 import Categories from '../components/categories';
+import ComponentMovie from '../components/componentMovie';
 
 //Api class
 import Movie from '../services/Movie';
@@ -18,7 +19,9 @@ import { actionDataMovies } from '../store/actions/dataMovies'
 
 //home page context
 import { HomePage } from '../contexts/homePage/HomePageContext';
-import ComponentMovie from '../components/componentMovie';
+
+//utils
+import { filterSaveMovies } from '../utils/filterSaveMovies';
 
 interface TypeComponents {
   label: string,

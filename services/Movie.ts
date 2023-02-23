@@ -39,6 +39,8 @@ class MovieClass{
     //create or delete movie on the database
     public async saveMovie(movieData: IMovie, save:boolean){
 
+        let userId = store.getState().auth.id
+
         try {
             if(!save){
 
@@ -50,7 +52,7 @@ class MovieClass{
             }
 
             var response = save
-            ? await addDoc(this.collection, {movieId: movieData.movieId, name: movieData.name})
+            ? await addDoc(this.collection, {movieId: movieData.movieId, name: movieData.name, userId})
             : await deleteDoc(this.movieReference(data.movie.id))
             
             return { response: response, success: true, message: '' }
@@ -94,7 +96,7 @@ class MovieClass{
         try {
 
             let movie = await getDocs(querySaveMovie);
-    
+
             let data: any = { success: true, movie: this.dataListConverting(movie)[0] }
             
             return data
